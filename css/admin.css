@@ -128,6 +128,18 @@ body #onoffice-ajax span.viewusage .italic {
 	padding: 0;
 }
 
+#listSettings .accordion-section-content .label-multiParkingLot{
+	color: #999999;
+	font-style: italic;
+}
+
+#listSettings .accordion-section-content .label-multiParkingLot .hint{
+	display: inline;
+	font-style: italic;
+	color: #ff6634;
+	padding-left: 5px;
+}
+
 #sortableFieldsList .menu-item-settings-name {
 	font-style: italic;
 }

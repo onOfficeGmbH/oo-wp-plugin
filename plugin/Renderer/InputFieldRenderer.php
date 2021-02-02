@@ -21,6 +21,8 @@
 
 namespace onOffice\WPlugin\Renderer;
 
+use DI\Container;
+
 /**
  *
  * @url http://www.onoffice.de
@@ -54,7 +56,6 @@ abstract class InputFieldRenderer
 	 * @param string $type
 	 * @param string $name
 	 * @param mixed $value
-	 *
 	 */
 
 	public function __construct($type, $name, $value = null)

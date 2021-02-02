@@ -21,6 +21,7 @@
 
 namespace onOffice\WPlugin\Renderer;
 
+use DI\Container;
 use DI\ContainerBuilder;
 use Exception;
 use onOffice\WPlugin\API\APIClientCredentialsException;
@@ -39,6 +40,10 @@ use function esc_html;
 class InputFieldCheckboxRenderer
 	extends InputFieldRenderer
 {
+
+	/** @var Container */
+	private $_pContainer = null;
+
 	/** @var array */
 	private $_checkedValues = [];
 
@@ -46,11 +51,17 @@ class InputFieldCheckboxRenderer
 	 *
 	 * @param string $name
 	 * @param mixed $value
-	 *
+	 * @param Container $_pContainer
+	 * @throws Exception
 	 */
-
-	public function __construct($name, $value)
+	public function __construct($name, $value, Container $_pContainer = null)
 	{
+		if ($_pContainer === null) {
+			$pDIContainerBuilder = new ContainerBuilder;
+			$pDIContainerBuilder->addDefinitions(ONOFFICE_DI_CONFIG_PATH);
+			$_pContainer = $pDIContainerBuilder->build();
+		}
+		$this->_pContainer = $_pContainer;
 		parent::__construct('checkbox', $name, $value);
 	}
 
@@ -82,13 +93,11 @@ class InputFieldCheckboxRenderer
 
 	private function buildFieldsCollection(): FieldsCollection
 	{
-		$pDIContainerBuilder = new ContainerBuilder;
-		$pDIContainerBuilder->addDefinitions(ONOFFICE_DI_CONFIG_PATH);
-		$pContainer = $pDIContainerBuilder->build();
 		$pFieldsCollection = new FieldsCollection();
 
 		/** @var FieldsCollectionBuilderShort $pFieldsCollectionBuilder */
-		$pFieldsCollectionBuilder = $pContainer->get(FieldsCollectionBuilderShort::class);
+		$pFieldsCollectionBuilder = $this->_pContainer->get(FieldsCollectionBuilderShort::class);
+
 		try {
 			$pFieldsCollectionBuilder
 				->addFieldsAddressEstate($pFieldsCollection)
@@ -105,7 +114,6 @@ class InputFieldCheckboxRenderer
 	public function render()
 	{
 		$pFieldsCollection = $this->buildFieldsCollection();
-
 		if (is_array($this->getValue())) {
 			foreach ($this->getValue() as $key => $label) {
 				$inputId = 'label'.$this->getGuiId().'b'.$key;
@@ -116,8 +124,10 @@ class InputFieldCheckboxRenderer
 					.(is_array($this->_checkedValues) && in_array($key, $this->_checkedValues) ? ' checked="checked" ' : '')
 					.$this->renderAdditionalAttributes()
 					.' onoffice-multipleSelectType="'.$onofficeMultipleSelect.'"'
-					.' id="'.esc_html($inputId).'">'
-					.'<label for="'.esc_html($inputId).'">'.esc_html($label).'</label><br>';
+					.' id="'.esc_html($inputId).(($key === "multiParkingLot") ? ' input-multiParkingLot' : '').'"'
+					. (($key === "multiParkingLot") ? ' disabled class="input-multiParkingLot"' : '') . '>'
+					.'<label'.(($key === "multiParkingLot") ? ' class="label-multiParkingLot" ' : '').'for="'.esc_html($inputId).'">'.esc_html($label)
+					. (($key === "multiParkingLot") ? '<span class="hint">'.__('(Can not be displayed)', 'onoffice-for-wp-websites').'</span>' : '').'</label><br>';
 			}
 		} else {
 			echo '<input type="'.esc_html($this->getType()).'" name="'.esc_html($this->getName())
