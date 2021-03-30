@@ -33,6 +33,7 @@ use onOffice\WPlugin\Model\FormModel;
 use onOffice\WPlugin\Model\InputModel\InputModelDBFactory;
 use onOffice\WPlugin\Model\InputModel\InputModelDBFactoryConfigForm;
 use onOffice\WPlugin\Model\InputModelBase;
+use onOffice\WPlugin\Model\InputModelBuilder\InputModelBuilderCustomLabel;
 use onOffice\WPlugin\Model\InputModelBuilder\InputModelBuilderDefaultValue;
 use onOffice\WPlugin\Model\InputModelDB;
 use onOffice\WPlugin\Model\InputModelLabel;
@@ -120,6 +121,8 @@ class FormModelBuilderDBForm
 		$pInputModelFieldsConfig->addReferencedInputModel($pModule);
 		$pInputModelFieldsConfig->addReferencedInputModel($this->getInputModelDefaultValue($pFieldsCollectionUsedFields));
 		$pInputModelFieldsConfig->addReferencedInputModel($this->getInputModelDefaultValueLanguageSwitch());
+		$pInputModelFieldsConfig->addReferencedInputModel($this->getInputModelCustomLabel($pFieldsCollectionUsedFields));
+		$pInputModelFieldsConfig->addReferencedInputModel($this->getInputModelCustomLabelLanguageSwitch());
 		$pInputModelFieldsConfig->addReferencedInputModel($pReferenceIsRequired);
 		$pInputModelFieldsConfig->addReferencedInputModel($pReferenceIsAvailableOptions);
 
@@ -359,6 +362,18 @@ class FormModelBuilderDBForm
 		return $pInputModelBuilder->createInputModelDefaultValue($pFieldsCollection, $this->getValue('defaultvalue', []));
 	}
 
+	/**
+	 * @param FieldsCollection $pFieldsCollection
+	 * @return InputModelDB
+	 * @throws DependencyException
+	 * @throws NotFoundException
+	 */
+	private function getInputModelCustomLabel(FieldsCollection $pFieldsCollection): InputModelDB
+	{
+		$pInputModelBuilder = $this->_pContainer->get(InputModelBuilderCustomLabel::class);
+		return $pInputModelBuilder->createInputModelCustomLabel($pFieldsCollection, $this->getValue('customlabel', []));
+	}
+
 
 	/**
 	 * @return InputModelDB
@@ -381,6 +396,28 @@ class FormModelBuilderDBForm
 				$pInputModel->setHtmlType(InputModelBase::HTML_TYPE_SELECT);
 				$pInputModel->setLabel(__('Add language', 'onoffice-for-wp-websites'));
 			}
+		});
+
+		return $pInputModel;
+	}
+
+	/**
+	 * @return InputModelDB
+	 */
+	public function getInputModelCustomLabelLanguageSwitch(): InputModelDB
+	{
+		$pInputModel = new InputModelDB('customlabel_newlang',
+			__('Add custom label language', 'onoffice-for-wp-websites'));
+		$pInputModel->setTable('language-custom-label');
+		$pInputModel->setField('language');
+
+		$pLanguageReader = new InstalledLanguageReader;
+		$languages = ['' => __('Choose Language', 'onoffice-for-wp-websites')]
+			+ $pLanguageReader->readAvailableLanguageNamesUsingNativeName();
+		$pInputModel->setValuesAvailable(array_diff_key($languages, [get_locale() => []]));
+		$pInputModel->setValueCallback(function (InputModelDB $pInputModel) {
+			$pInputModel->setHtmlType(InputModelBase::HTML_TYPE_SELECT);
+			$pInputModel->setLabel(__('Add custom label language', 'onoffice-for-wp-websites'));
 		});
 
 		return $pInputModel;

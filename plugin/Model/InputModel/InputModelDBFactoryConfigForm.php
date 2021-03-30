@@ -75,6 +75,9 @@ class InputModelDBFactoryConfigForm
 	const INPUT_FORM_DEFAULT_VALUE = 'defaultValue';
 
 	/** */
+	const INPUT_FORM_CUSTOM_LABEL = 'customlabel';
+
+	/** */
 	const INPUT_FORM_ESTATE_CONTEXT_AS_HEADING = 'show_estate_context';
 
 
@@ -147,6 +150,10 @@ class InputModelDBFactoryConfigForm
 		],
 		self::INPUT_FORM_DEFAULT_VALUE => [
 			self::KEY_TABLE => 'oo_plugin_fieldconfig_form_defaults_values',
+			self::KEY_FIELD => 'value',
+		],
+		self::INPUT_FORM_CUSTOM_LABEL => [
+			self::KEY_TABLE => 'oo_plugin_fieldconfig_form_translated_labels',
 			self::KEY_FIELD => 'value',
 		],
 	];

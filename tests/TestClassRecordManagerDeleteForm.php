@@ -66,10 +66,11 @@ class TestClassRecordManagerDeleteForm
 
 	public function testDeleteByIds()
 	{
-		$this->_pWpdbMock->expects($this->exactly(9))->method('delete')->with($this->logicalOr(
+		$this->_pWpdbMock->expects($this->exactly(12))->method('delete')->with($this->logicalOr(
 			$this->equalTo('wp_test_oo_plugin_forms'),
 			$this->equalTo('wp_test_oo_plugin_form_fieldconfig'),
-			$this->equalTo('wp_test_oo_plugin_fieldconfig_form_defaults')
+			$this->equalTo('wp_test_oo_plugin_fieldconfig_form_defaults'),
+			$this->equalTo('wp_test_oo_plugin_fieldconfig_form_customs_labels')
 		));
 		$this->_pWpdbMock->expects($this->once())->method('prepare')
 			->with('DELETE FROM wp_test_oo_plugin_fieldconfig_form_defaults_values '
@@ -79,12 +80,42 @@ class TestClassRecordManagerDeleteForm
 		$this->_pWpdbMock->expects($this->once())->method('query')
 			->with('DELETE FROM wp_test_oo_plugin_fieldconfig_form_defaults_values '
 				.'WHERE defaults_id IN (1, 2, 3)');
-		$this->_pWpdbMock->expects($this->exactly(3))->method('get_col')
+		$this->_pWpdbMock->expects($this->exactly(6))->method('get_col')
 			->will($this->returnCallback(function(string $query): array {
 			return $query === "SELECT defaults_id "
 				."FROM wp_test_oo_plugin_fieldconfig_form_defaults "
 				."WHERE form_id = '14'" ? [1, 2, 3] : [];
 		}));
+
+		$this->_pSubject->deleteByIds([13, 14, 15]);
+	}
+
+	/**
+	 *
+	 */
+
+	public function testDeleteTranslatedLabelsByIds()
+	{
+		$this->_pWpdbMock->expects($this->exactly(12))->method('delete')->with($this->logicalOr(
+			$this->equalTo('wp_test_oo_plugin_forms'),
+			$this->equalTo('wp_test_oo_plugin_form_fieldconfig'),
+			$this->equalTo('wp_test_oo_plugin_fieldconfig_form_defaults'),
+			$this->equalTo('wp_test_oo_plugin_fieldconfig_form_customs_labels')
+		));
+		$this->_pWpdbMock->expects($this->once())->method('prepare')
+			->with('DELETE FROM wp_test_oo_plugin_fieldconfig_form_translated_labels '
+				.'WHERE input_id IN (%d, %d, %d)', [1 ,2 ,3])
+			->will($this->returnValue('DELETE FROM wp_test_oo_plugin_fieldconfig_form_translated_labels '
+				.'WHERE input_id IN (1, 2, 3)'));
+		$this->_pWpdbMock->expects($this->once())->method('query')
+			->with('DELETE FROM wp_test_oo_plugin_fieldconfig_form_translated_labels '
+				.'WHERE input_id IN (1, 2, 3)');
+		$this->_pWpdbMock->expects($this->exactly(6))->method('get_col')
+			->will($this->returnCallback(function(string $query): array {
+				return $query === "SELECT customs_labels_id "
+				."FROM wp_test_oo_plugin_fieldconfig_form_customs_labels "
+				."WHERE form_id = '14'" ? [1, 2, 3] : [];
+			}));
 
 		$this->_pSubject->deleteByIds([13, 14, 15]);
 	}

@@ -30,8 +30,11 @@ use onOffice\WPlugin\Field\Collection\FieldsCollectionBuilderFromNamesForm;
 use onOffice\WPlugin\Field\Collection\FieldsCollectionBuilderShort;
 use onOffice\WPlugin\Field\Collection\FieldsCollectionConfiguratorForm;
 use onOffice\WPlugin\Field\Collection\FieldsCollectionToContentFieldLabelArrayConverter;
+use onOffice\WPlugin\Field\CustomLabel\CustomLabelDelete;
+use onOffice\WPlugin\Field\CustomLabel\CustomLabelRead;
+use onOffice\WPlugin\Field\CustomLabel\Exception\CustomLabelDeleteException;
+use onOffice\WPlugin\Field\CustomLabel\ModelToOutputConverter\CustomLabelRowSaver;
 use onOffice\WPlugin\Field\DefaultValue\DefaultValueDelete;
-use onOffice\WPlugin\Field\DefaultValue\Exception\DefaultValueDeleteException;
 use onOffice\WPlugin\Field\DefaultValue\ModelToOutputConverter\DefaultValueModelToOutputConverter;
 use onOffice\WPlugin\Field\DefaultValue\ModelToOutputConverter\DefaultValueRowSaver;
 use onOffice\WPlugin\Field\UnknownFieldException;
@@ -82,6 +85,9 @@ abstract class AdminPageFormSettingsBase
 
 	/** */
 	const DEFAULT_VALUES = 'defaultvalues';
+
+	/** */
+	const CUSTOM_LABELS = 'customlabels';
 
 
 	/** @var bool */
@@ -221,6 +227,7 @@ abstract class AdminPageFormSettingsBase
 
 		if ($result) {
 			$this->saveDefaultValues($recordId, $row);
+			$this->saveCustomLabels($recordId, $row);
 		}
 
 		$pResult->result = $result;
@@ -269,10 +276,12 @@ abstract class AdminPageFormSettingsBase
 			self::FIELD_MODULE => __('Module: %s', 'onoffice-for-wp-websites'),
 			self::FIELD_MULTISELECT_EDIT_VALUES => __('Edit Values', 'onoffice-for-wp-websites'),
 			self::DEFAULT_VALUES => $this->readDefaultValues(),
+			self::CUSTOM_LABELS => $this->readCustomLabels(),
 			'label_add_language' => __('Add Language', 'onoffice-for-wp-websites'),
 			'label_choose_language' => __('Choose Language', 'onoffice-for-wp-websites'),
 			/* translators: %s is the name of a language */
 			'label_default_value' => __('Default Value: %s', 'onoffice-for-wp-websites'),
+			'label_custom_label' => __('Custom Label: %s', 'onoffice-for-wp-websites'),
 			'label_default_value_from' => __('Default Value From:', 'onoffice-for-wp-websites'),
 			'label_default_value_up_to' => __('Default Value Up To:', 'onoffice-for-wp-websites'),
 			'fieldList' => $this->getFieldList(),
@@ -328,6 +337,36 @@ abstract class AdminPageFormSettingsBase
 			$result[$pField->getName()] = $pDefaultValueConverter->getConvertedField
 				((int)$this->getListViewId(), $pField);
 		}
+		return $result;
+	}
+
+	/**
+	 * @return array
+	 * @throws DependencyException
+	 * @throws NotFoundException
+	 * @throws UnknownFieldException
+	 */
+	private function readCustomLabels(): array
+	{
+		$result = [];
+		/** @var CustomLabelRead $pCustomLabelRead*/
+		$pCustomLabelRead = $this->getContainer()->get(CustomLabelRead::class);
+		$pLanguage = $this->getContainer()->get(Language::class);
+
+		foreach ($this->buildFieldsCollectionForCurrentForm()->getAllFields() as $pField) {
+			$pCustomLabelModel = $pCustomLabelRead->readCustomLabelsField
+			((int)$this->getListViewId(), $pField);
+
+			$valuesByLocale = $pCustomLabelModel->getValuesByLocale();
+			$currentLocale = $pLanguage->getLocale();
+
+			if (isset($valuesByLocale[$currentLocale])) {
+				$valuesByLocale['native'] = $valuesByLocale[$currentLocale];
+				unset($valuesByLocale[$currentLocale]);
+			}
+			$result[$pField->getName()] = $valuesByLocale;
+		}
+
 		return $result;
 	}
 
@@ -497,7 +536,6 @@ abstract class AdminPageFormSettingsBase
 	 * @throws NotFoundException
 	 * @throws RecordManagerInsertException
 	 * @throws UnknownFieldException
-	 * @throws DefaultValueDeleteException
 	 */
 	private function saveDefaultValues(int $recordId, array $row)
 	{
@@ -519,6 +557,36 @@ abstract class AdminPageFormSettingsBase
 			$row['oo_plugin_fieldconfig_form_defaults_values'] ?? [], $pFieldsCollectionCurrent);
 	}
 
+	/**
+	 * @param int $recordId
+	 * @param array $row
+	 * @throws CustomLabelDeleteException
+	 * @throws DependencyException
+	 * @throws NotFoundException
+	 * @throws RecordManagerInsertException
+	 * @throws UnknownFieldException
+	 */
+	private function saveCustomLabels(int $recordId, array $row)
+	{
+		$fields = $row[RecordManager::TABLENAME_FIELDCONFIG_FORMS] ?? [];
+		$fieldNamesSelected = array_column($fields, 'fieldname');
+		$pFieldsCollectionBase = $this->buildFieldsCollectionForCurrentForm();
+
+		/** @var FieldsCollectionBuilderFromNamesForm $pFieldsCollectionBuilder */
+		$pFieldsCollectionBuilder = $this->getContainer()->get(FieldsCollectionBuilderFromNamesForm::class);
+		$pFieldsCollectionCurrent = $pFieldsCollectionBuilder->buildFieldsCollectionFromBaseCollection
+		($fieldNamesSelected, $pFieldsCollectionBase);
+
+
+		/** @var CustomLabelDelete $pCustomLabelDelete */
+		$pCustomLabelDelete = $this->getContainer()->get(CustomLabelDelete::class);
+		$pCustomLabelDelete->deleteByFormIdAndFieldNames($recordId, $fieldNamesSelected);
+
+		$pCustomLabelSave = $this->getContainer()->get(CustomLabelRowSaver::class);
+		$pCustomLabelSave->saveCustomLabels($recordId,
+			$row['oo_plugin_fieldconfig_form_translated_labels'] ?? [], $pFieldsCollectionCurrent);
+	}
+
 
 	/**
 	 *
@@ -529,6 +597,7 @@ abstract class AdminPageFormSettingsBase
 		parent::doExtraEnqueues();
 		wp_enqueue_script('oo-checkbox-js');
 		wp_enqueue_script('onoffice-default-form-values-js');
+		wp_enqueue_script('onoffice-custom-form-label-js');
 		$pluginPath = ONOFFICE_PLUGIN_DIR.'/index.php';
 
 		wp_register_script('onoffice-multiselect', plugins_url('/js/onoffice-multiselect.js', $pluginPath));

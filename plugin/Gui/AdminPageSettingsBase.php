@@ -235,6 +235,9 @@ abstract class AdminPageSettingsBase
 		$row['oo_plugin_fieldconfig_form_defaults_values'] =
 			(array)($row['oo_plugin_fieldconfig_form_defaults_values']['value'] ?? []) +
 			(array)($values->{'defaultvalue-lang'}) ?? [];
+		$row['oo_plugin_fieldconfig_form_translated_labels'] =
+			(array)($row['oo_plugin_fieldconfig_form_translated_labels']['value'] ?? []) +
+			(array)($values->{'customlabel-lang'}) ?? [];
 
 		if ($checkResult) {
 			$this->updateValues($row, $pResultObject, $recordId);
@@ -440,6 +443,8 @@ abstract class AdminPageSettingsBase
 			plugin_dir_url(ONOFFICE_PLUGIN_DIR.'/index.php').'/js/checkbox.js', ['jquery'], '', true);
 		wp_register_script('onoffice-default-form-values-js',
 			plugin_dir_url(ONOFFICE_PLUGIN_DIR.'/index.php').'js/onoffice-default-form-values.js', ['onoffice-multiselect'], '', true);
+		wp_register_script('onoffice-custom-form-label-js',
+			plugin_dir_url(ONOFFICE_PLUGIN_DIR.'/index.php').'js/onoffice-custom-form-label.js', ['onoffice-multiselect'], '', true);
 
 		wp_enqueue_script('postbox');
 		wp_enqueue_script('admin-js');

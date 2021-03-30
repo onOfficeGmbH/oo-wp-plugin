@@ -119,7 +119,6 @@ class Field
 		return $this->_permittedvalues;
 	}
 
-
 	/**
 	 *
 	 * @return string
@@ -178,7 +177,6 @@ class Field
 	{
 		$this->_permittedvalues = $permittedvalues;
 	}
-
 
 	/**
 	 *

@@ -47,7 +47,7 @@ class TestClassDatabaseChanges
 	extends WP_UnitTestCase
 {
 	/** amount of tables created */
-	const NUM_NEW_TABLES = 7;
+	const NUM_NEW_TABLES = 9;
 
 	/** @var string[] */
 	private $_createQueries = [];
@@ -107,7 +107,7 @@ class TestClassDatabaseChanges
 		$this->assertGreaterThanOrEqual(self::NUM_NEW_TABLES, count($this->_createQueries));
 
 		$dbversion = $this->_pDbChanges->getDbVersion();
-		$this->assertEquals(17, $dbversion);
+		$this->assertEquals(18, $dbversion);
 		return $this->_createQueries;
 	}
 
@@ -150,7 +150,7 @@ class TestClassDatabaseChanges
 	 */
 	public function testMaxVersion()
 	{
-		$this->assertEquals(17, DatabaseChanges::MAX_VERSION);
+		$this->assertEquals(18, DatabaseChanges::MAX_VERSION);
 	}
 
 
@@ -172,9 +172,7 @@ class TestClassDatabaseChanges
 		// assert that as many tables have been removed as have been created
 		$uniqueCreateQueries = array_unique($createQueries);
 		$uniqueDropQueries = array_unique($this->_dropQueries);
-
 		$this->assertEquals(count($uniqueCreateQueries), count($uniqueDropQueries));
-
 		$dbversion = $this->_pWpOption->getOption('oo_plugin_db_version', null);
 		$this->assertNull($dbversion);
 		$this->assertNull($this->_pDbChanges->getDbVersion());

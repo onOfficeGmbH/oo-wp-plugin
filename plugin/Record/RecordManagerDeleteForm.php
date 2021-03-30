@@ -77,7 +77,20 @@ class RecordManagerDeleteForm
 					."WHERE defaults_id IN ($placeHolders)", $defaultIds));
 			}
 
+			$inputIds = $pWpdb->get_col(
+				"SELECT customs_labels_id "
+				."FROM {$prefix}oo_plugin_fieldconfig_form_customs_labels "
+				."WHERE form_id = '".esc_sql($id)."'");
+
+			if ($inputIds !== []) {
+				$stringPlaceholders = array_fill(0, count($inputIds), '%d');
+				$placeHolders = implode(', ', $stringPlaceholders);
+				$pWpdb->query($pWpdb->prepare("DELETE FROM {$prefix}oo_plugin_fieldconfig_form_translated_labels "
+					."WHERE input_id IN ($placeHolders)", $inputIds));
+			}
+
 			$pWpdb->delete($prefix.'oo_plugin_fieldconfig_form_defaults', ['form_id' => $id]);
+			$pWpdb->delete($prefix.'oo_plugin_fieldconfig_form_customs_labels', ['form_id' => $id]);
 		}
 	}
 }
