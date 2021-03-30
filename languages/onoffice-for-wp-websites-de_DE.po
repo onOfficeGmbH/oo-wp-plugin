@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: onOffice for WP-Websites 2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/onoffice-for-wp-"
 "websites\n"
-"POT-Creation-Date: 2020-12-29T15:20:28+07:00\n"
+"POT-Creation-Date: 2021-03-30T14:59:54+07:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -132,7 +132,7 @@ msgid "Search Criteria"
 msgstr "Suchkriterium"
 
 #: plugin/Field/Collection/FieldsCollectionBuilderShort.php:156
-#: plugin/Fieldnames.php:219 plugin/Gui/AdminPageFormSettingsContact.php:142
+#: plugin/Fieldnames.php:219 plugin/Gui/AdminPageFormSettingsContact.php:147
 msgid "Form Specific Fields"
 msgstr "Formspezifische Felder"
 
@@ -316,7 +316,7 @@ msgid "Detail View"
 msgstr "Detailansicht"
 
 #: plugin/Gui/AdminPageEstate.php:88 plugin/Gui/AdminPageSimilarEstates.php:147
-#: plugin/Gui/AdminPageSimilarEstates.php:202
+#: plugin/Gui/AdminPageSimilarEstates.php:200
 msgid "Similar Estates"
 msgstr "Ähnliche Immobilien"
 
@@ -383,7 +383,7 @@ msgstr "Dokumente zum Herunterladen"
 
 #: plugin/Gui/AdminPageEstateListSettings.php:150
 #: plugin/Gui/AdminPageFormSettingsApplicantSearch.php:73
-#: plugin/Gui/AdminPageFormSettingsContact.php:170
+#: plugin/Gui/AdminPageFormSettingsContact.php:175
 msgid "Geo Fields"
 msgstr "Umkreisfelder"
 
@@ -420,7 +420,7 @@ msgid "Records"
 msgstr "Datensätze"
 
 #: plugin/Gui/AdminPageFormSettingsApplicantSearch.php:61
-#: plugin/Gui/AdminPageFormSettingsContact.php:96
+#: plugin/Gui/AdminPageFormSettingsContact.php:100
 msgid "Form Specific Options"
 msgstr "Formularspezifische Optionen"
 
@@ -442,7 +442,7 @@ msgstr ""
 
 #. translators: %s is a translated module name
 #: plugin/Gui/AdminPageFormSettingsBase.php:269
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:469
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:491
 msgid "Module: %s"
 msgstr "Modul: %s"
 
@@ -455,7 +455,7 @@ msgid "Add Language"
 msgstr "Sprache hinzufügen"
 
 #: plugin/Gui/AdminPageFormSettingsBase.php:273
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:373
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:395
 msgid "Choose Language"
 msgstr "Sprache auswählen"
 
@@ -526,13 +526,13 @@ msgstr "Felder"
 msgid "Fields Configuration"
 msgstr "Feldeinstellungen"
 
-#: plugin/Gui/AdminPageSimilarEstates.php:323
+#: plugin/Gui/AdminPageSimilarEstates.php:319
 #, fuzzy
 #| msgid "The view has been saved."
 msgid "The similar estates view has been saved."
 msgstr "Die Ansicht wurde gespeichert."
 
-#: plugin/Gui/AdminPageSimilarEstates.php:324
+#: plugin/Gui/AdminPageSimilarEstates.php:320
 #, fuzzy
 #| msgid "There was a problem saving the detail view."
 msgid "There was a problem saving the similar estates view."
@@ -672,7 +672,7 @@ msgid "Hidden"
 msgstr "Unsichtbar"
 
 #: plugin/Model/FormModelBuilder/FormModelBuilderDBEstateListSettings.php:181
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:340
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:362
 msgid "Reduce values according to selected filter"
 msgstr "Werte durch gewählten Filter reduzieren"
 
@@ -726,53 +726,71 @@ msgstr "Formulierung der Sortierrichtungen"
 msgid "Unit List"
 msgstr "Einheitenliste"
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:203
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:204
 msgid "Form"
 msgstr "Formular"
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:215
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:216
 msgid "Form Name"
 msgstr "Formularname"
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:234
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:235
 msgid "Type of Form: "
 msgstr "Formularart: "
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:253
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:254
 msgid ", Embed Code: "
 msgstr ", Embed Code: "
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:265
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:266
 msgid "Recipient's E-Mail Address"
 msgstr "E-Mail-Adresse des Empfängers"
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:272
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:273
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:291
 msgid "john.doe@example.com"
 msgstr "max.mustermann@beispiel.com"
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:286
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:284
+#, fuzzy
+#| msgid "Fallback's E-Mail Address"
+msgid "Fallback E-Mail Address"
+msgstr "Fallback-Adresse(optiona)"
+
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:292
+msgid ""
+"The recipient email address is the email address of the contact person that "
+"is stored in onOffice enterprise edition.\n"
+"\t\t \tIf it is not set, the contact request is sent to the fallback address."
+msgstr ""
+"Die Anfrage wird per E-Mail an den Ansprechpartner der Immobilie "
+"verschickt.\n"
+"\t\t \tSollte es zu Problemen beim Versand kommen, wird die hier angegebene "
+"Adresse verwendet."
+
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:308
 msgid "(won't work until set up globally)"
 msgstr "(funktioniert erst nach der Einrichtung)"
 
 #. translators: %s will be replaced with the translation of '(won't work until set up globally)', if captcha hasn't been set up appropriately yet, or blank otherwise.
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:292
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:314
 msgid "Requires Captcha %s"
 msgstr "Benötigt Captcha %s"
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:305
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:327
 msgid "Result Limit"
 msgstr "Maximale Ergebnisanzahl"
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:323
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:345
 msgid "Required"
 msgstr "Pflichtangabe"
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:368
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:382
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:390
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:404
 msgid "Add language"
 msgstr "Sprache hinzufügen"
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:441
+#: plugin/Model/FormModelBuilder/FormModelBuilderDBForm.php:463
 msgid "Module"
 msgstr "Modul"
 
@@ -810,24 +828,16 @@ msgstr "Gleiche Immobilienart"
 msgid "Same Marketing Method"
 msgstr "Gleiche Vermarktungsart"
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:293
-msgid "Don't show archived estates"
-msgstr "Archivierte Objekte nicht anzeigen"
-
-#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:314
-msgid "Don't show reference estates"
-msgstr "Referenzobjekte nicht anzeigen"
-
-#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:336
+#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:294
 msgid "Same Postal Code"
 msgstr "Gleiche Postleitzahl"
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:358
+#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:316
 #: plugin/Model/InputModelBuilder/InputModelBuilderGeoRange.php:248
 msgid "Radius"
 msgstr "Umkreis"
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:380
+#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:338
 msgid "Amount of Estates"
 msgstr "Anzahl Immobilien"
 
@@ -912,16 +922,16 @@ msgstr "Bearbeiten"
 msgid "(Remains unchanged)"
 msgstr "(Bleibt unverändert)"
 
-#: plugin/ScriptLoader/ScriptLoaderGenericConfigurationDefault.php:84
+#: plugin/ScriptLoader/ScriptLoaderGenericConfigurationDefault.php:88
 msgid "0 matches"
 msgstr "0 Treffer"
 
-#: plugin/ScriptLoader/ScriptLoaderGenericConfigurationDefault.php:85
+#: plugin/ScriptLoader/ScriptLoaderGenericConfigurationDefault.php:89
 msgid "Show exact match"
 msgstr "Einen Treffer anzeigen"
 
 #. translators: %s is the amount of results
-#: plugin/ScriptLoader/ScriptLoaderGenericConfigurationDefault.php:87
+#: plugin/ScriptLoader/ScriptLoaderGenericConfigurationDefault.php:91
 msgid "Show %s matches"
 msgstr "%s Treffer anzeigen"
 
@@ -1033,3 +1043,9 @@ msgstr "Ansprechpartner"
 #: tests/resources/templates/default_detail.php:61
 msgid "Documents"
 msgstr "Dokumente"
+
+#~ msgid "Don't show archived estates"
+#~ msgstr "Archivierte Objekte nicht anzeigen"
+
+#~ msgid "Don't show reference estates"
+#~ msgstr "Referenzobjekte nicht anzeigen"

@@ -274,6 +274,27 @@ class FormModelBuilderDBForm
 		return $pInputModelFormRecipient;
 	}
 
+
+	/**
+	 * @return InputModelDB
+	 */
+	public function createInputModelRecipientContactForm()
+	{
+		$labelRecipient = __('Fallback E-Mail Address', 'onoffice-for-wp-websites');
+		$selectedRecipient = $this->getValue('recipient');
+
+		$pInputModelFormRecipient = $this->getInputModelDBFactory()->create
+		(InputModelDBFactoryConfigForm::INPUT_FORM_RECIPIENT, $labelRecipient);
+		$pInputModelFormRecipient->setHtmlType(InputModelOption::HTML_TYPE_TEXT);
+		$pInputModelFormRecipient->setValue($selectedRecipient);
+		$pInputModelFormRecipient->setPlaceholder(__('john.doe@example.com', 'onoffice-for-wp-websites'));
+		$pInputModelFormRecipient->setHint(__('The recipient email address is the email address of the contact person that is stored in onOffice enterprise edition.
+		 	If it is not set, the contact request is sent to the fallback address.',
+			'onoffice-for-wp-websites'));
+
+		return $pInputModelFormRecipient;
+	}
+
 	/**
 	 * @return InputModelDB
 	 * @throws Exception

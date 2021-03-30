@@ -250,3 +250,13 @@ div[data-name^=oopluginfieldconfigformdefaultsvalues-value].multiselect > input.
     position: relative;
     float: right;
 }
+
+#viewformspecific .inside{
+	overflow: hidden;
+}
+#viewformspecific .inside .hint-fallback-email{
+	float: right;
+	width: 50%;
+	text-align: left;
+	margin-top: 0;
+}

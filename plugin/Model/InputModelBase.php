@@ -85,6 +85,9 @@ abstract class InputModelBase
 	private $_placeholder = null;
 
 	/** @var string */
+	private $_hint = null;
+
+	/** @var string */
 	private $_id = null;
 
 	/** @var array For referenced input models only */
@@ -173,6 +176,14 @@ abstract class InputModelBase
 	/** @param string $placeholder */
 	public function setPlaceholder($placeholder)
 		{ $this->_placeholder = $placeholder; }
+
+	/** @return string */
+	public function getHint()
+	{ return $this->_hint; }
+
+	/** @param string $hint */
+	public function setHint($hint)
+	{ $this->_hint = $hint; }
 
 	/** @param string $id */
 	public function setId($id)

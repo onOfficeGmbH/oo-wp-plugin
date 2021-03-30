@@ -181,6 +181,9 @@ class InputModelRenderer
 					}
 					$pInstance->setValue($pInputModel->getValue());
 				}
+				if ($pInputModel->getHint() != null) {
+					$pInstance->setHint($pInputModel->getHint());
+				}
 
 				break;
 			case InputModelOption::HTML_TYPE_HIDDEN:

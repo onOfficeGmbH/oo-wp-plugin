@@ -24,6 +24,7 @@ namespace onOffice\WPlugin\Gui;
 use onOffice\SDK\onOfficeSDK;
 use onOffice\WPlugin\DataFormConfiguration\DataFormConfiguration;
 use onOffice\WPlugin\Field\FieldModuleCollectionDecoratorFormContact;
+use onOffice\WPlugin\Form;
 use onOffice\WPlugin\Model\FormModel;
 use onOffice\WPlugin\Model\FormModelBuilder\FormModelBuilder;
 use onOffice\WPlugin\Model\InputModel\InputModelConfigurationFormContact;
@@ -86,15 +87,17 @@ class AdminPageFormSettingsContact
 			$values = $pRecordReadManager->getRowById($this->getListViewId());
 			$pInputModelBuilder->setValues($values);
 		}
-
-		$pInputModelRecipient = $pFormModelBuilder->createInputModelRecipient();
+		if ($this->getType() === Form::TYPE_CONTACT) {
+			$pInputModelRecipient = $pFormModelBuilder->createInputModelRecipientContactForm();
+		} else {
+			$pInputModelRecipient = $pFormModelBuilder->createInputModelRecipient();
+		}
 		$pInputModelSubject = $pInputModelBuilder->build(InputModelDBFactoryConfigForm::INPUT_FORM_SUBJECT);
 		$pInputModelCaptcha = $pFormModelBuilder->createInputModelCaptchaRequired();
 		$pFormModelFormSpecific = new FormModel();
 		$pFormModelFormSpecific->setPageSlug($this->getPageSlug());
 		$pFormModelFormSpecific->setGroupSlug(self::FORM_VIEW_FORM_SPECIFIC);
 		$pFormModelFormSpecific->setLabel(__('Form Specific Options', 'onoffice-for-wp-websites'));
-		$pFormModelFormSpecific->addInputModel($pInputModelRecipient);
 		$pFormModelFormSpecific->addInputModel($pInputModelSubject);
 		$pFormModelFormSpecific->addInputModel($pInputModelCaptcha);
 
@@ -117,6 +120,8 @@ class AdminPageFormSettingsContact
 			$pInputModel = $pInputModelBuilder->build(InputModelDBFactoryConfigForm::INPUT_FORM_ESTATE_CONTEXT_AS_HEADING);
 			$pFormModelFormSpecific->addInputModel($pInputModel);
 		}
+
+		$pFormModelFormSpecific->addInputModel($pInputModelRecipient);
 
 		$this->addFormModel($pFormModelFormSpecific);
 		$this->buildGeoPositionSettings();
