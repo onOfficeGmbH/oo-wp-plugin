@@ -131,7 +131,6 @@ abstract class FormPost
 			$this->analyseFormContentByPrefix($pFormData);
 			$pFormData->setStatus(self::MESSAGE_SUCCESS);
 		} catch (Exception $pException) {
-			var_dump($pException->getTrace());
 			$pFormData->setStatus(self::MESSAGE_ERROR);
 			$this->_pFormPostConfiguration->getLogger()->logError($pException);
 		}
