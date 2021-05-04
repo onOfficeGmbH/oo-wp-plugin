@@ -27,7 +27,7 @@
 	},
 	"require": {
 		"php": ">=7.0.0",
-		"php-di/php-di": "^6.0",
+		"php-di/php-di": "^6.3",
 		"ext-curl": "*",
 		"select2/select2": "^4.0"
 	}
