@@ -149,6 +149,31 @@ class SDKWrapper
 
 
 	/**
+	 * @param $options
+	 */
+
+	public function sendRequestsWithCustomCurlOption($options)
+	{
+		$cloneOnOfficeSDK = clone $this->_pSDK;
+		$cloneOnOfficeSDK->setApiCurlOptions($options);
+
+		$pOptionsWrapper = $this->_pWPOptionWrapper;
+		$token = $pOptionsWrapper->getOption('onoffice-settings-apikey');
+		$secret = $pOptionsWrapper->getOption('onoffice-settings-apisecret');
+		$cloneOnOfficeSDK->sendRequests($token, $secret);
+		$errors = $cloneOnOfficeSDK->getErrors();
+
+		foreach ($this->_callbacksAfterSend as $handle => $callback) {
+			$response = $cloneOnOfficeSDK->getResponseArray($handle) ?? $errors[$handle] ?? [];
+			call_user_func($callback, $response);
+		}
+
+		$this->_callbacksAfterSend = [];
+	}
+
+
+
+	/**
 	 *
 	 * @return onOfficeSDKCache[]
 	 *

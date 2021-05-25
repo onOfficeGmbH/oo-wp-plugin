@@ -228,7 +228,7 @@ class AdminPageApiSettings
 		settings_fields($this->getPageSlug());
 		do_settings_sections($this->getPageSlug());
 
-		submit_button();
+		submit_button(__('Save changes and clear API cache', 'onoffice-for-wp-websites'));
 		echo '</form>';
 	}
 

@@ -103,6 +103,15 @@ class APIClientActionGeneric
 	}
 
 	/**
+	 * call addRequestToQueue() first
+	 * @param $options
+	 */
+	public function sendRequestsWithCustomCurlOption($options)
+	{
+		$this->_pSDKWrapper->sendRequestsWithCustomCurlOption($options);
+	}
+
+	/**
 	 * @return bool
 	 */
 	public function getResultStatus(): bool

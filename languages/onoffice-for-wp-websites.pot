@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-02-04T16:59:18+07:00\n"
+"POT-Creation-Date: 2021-05-17T09:02:26+07:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: onoffice-for-wp-websites\n"
@@ -286,7 +286,11 @@ msgstr ""
 msgid "In order to use Google reCAPTCHA, you need to provide your keys. You're free to enable it in the form settings for later use."
 msgstr ""
 
-#: plugin/Gui/AdminPageApiSettings.php:243
+#: plugin/Gui/AdminPageApiSettings.php:212
+msgid "Save changes and clear API cache"
+msgstr ""
+
+#: plugin/Gui/AdminPageApiSettings.php:224
 msgid "The cache was cleaned."
 msgstr ""
 
@@ -303,7 +307,7 @@ msgstr ""
 
 #: plugin/Gui/AdminPageEstate.php:88
 #: plugin/Gui/AdminPageSimilarEstates.php:147
-#: plugin/Gui/AdminPageSimilarEstates.php:202
+#: plugin/Gui/AdminPageSimilarEstates.php:200
 msgid "Similar Estates"
 msgstr ""
 
@@ -499,11 +503,11 @@ msgstr ""
 msgid "Fields Configuration"
 msgstr ""
 
-#: plugin/Gui/AdminPageSimilarEstates.php:323
+#: plugin/Gui/AdminPageSimilarEstates.php:319
 msgid "The similar estates view has been saved."
 msgstr ""
 
-#: plugin/Gui/AdminPageSimilarEstates.php:324
+#: plugin/Gui/AdminPageSimilarEstates.php:320
 msgid "There was a problem saving the similar estates view."
 msgstr ""
 
@@ -774,24 +778,16 @@ msgstr ""
 msgid "Same Marketing Method"
 msgstr ""
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:293
-msgid "Don't show archived estates"
-msgstr ""
-
-#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:314
-msgid "Don't show reference estates"
-msgstr ""
-
-#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:336
+#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:294
 msgid "Same Postal Code"
 msgstr ""
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:358
+#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:316
 #: plugin/Model/InputModelBuilder/InputModelBuilderGeoRange.php:248
 msgid "Radius"
 msgstr ""
 
-#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:380
+#: plugin/Model/FormModelBuilder/FormModelBuilderSimilarEstateSettings.php:338
 msgid "Amount of Estates"
 msgstr ""
 
@@ -876,16 +872,16 @@ msgstr ""
 msgid "(Remains unchanged)"
 msgstr ""
 
-#: plugin/ScriptLoader/ScriptLoaderGenericConfigurationDefault.php:84
+#: plugin/ScriptLoader/ScriptLoaderGenericConfigurationDefault.php:88
 msgid "0 matches"
 msgstr ""
 
-#: plugin/ScriptLoader/ScriptLoaderGenericConfigurationDefault.php:85
+#: plugin/ScriptLoader/ScriptLoaderGenericConfigurationDefault.php:89
 msgid "Show exact match"
 msgstr ""
 
 #. translators: %s is the amount of results
-#: plugin/ScriptLoader/ScriptLoaderGenericConfigurationDefault.php:87
+#: plugin/ScriptLoader/ScriptLoaderGenericConfigurationDefault.php:91
 msgid "Show %s matches"
 msgstr ""
 
