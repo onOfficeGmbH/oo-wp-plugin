@@ -144,7 +144,6 @@ class SearchcriteriaFields
 		return $output;
 	}
 
-
 	/**
 	 * @param array $inputFormFields
 	 * @return array

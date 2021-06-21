@@ -413,63 +413,26 @@ class TestClassFormPostInterest
 	private function addApiResponseSendMail(bool $success)
 	{
 		$parameters = [
-			'anonymousEmailidentity' => true,
-			'body' => 'Sehr geehrte Damen und Herren,'."\n\n"
-				.'ein neuer Interessent hat sich über das Kontaktformular auf Ihrer Webseite '
-				.'eingetragen. Die Adresse (John Doe) wurde bereits in Ihrem System eingetragen.'
-				."\n\n"
-				."Kontaktdaten des Interessenten:"."\n"
-				."Vorname: John"."\n"
-				."Name: Doe"."\n"
-				."E-Mail: john@doemail.com"."\n\n"
-				."Suchkriterien des Interessenten:"."\n"
-				."Vermarktungsart: Kauf"."\n"
-				."Kaufpreis (min): 200000"."\n"
-				."Kaufpreis (max): 800000"."\n\n"
-				.'Herzliche Grüße'."\n"
-				.'Ihr onOffice Team',
+			'addressdata' => [
+				'Vorname' => 'John',
+				'Name' => 'Doe',
+				'Email' => 'john@doemail.com',
+			],
+			'message' => "\nSuchkriterien des Interessenten:\nVermarktungsart: Kauf\nKaufpreis (min): 200000\nKaufpreis (max): 800000",
 			'subject' => 'Interest',
-			'replyto' => 'john@doemail.com',
-			'receiver' => [
-				'test@my-onoffice.com',
-			],
-			'X-Original-From' => 'john@doemail.com',
-			'saveToAgentsLog' => false,
+			'formtype' => Form::TYPE_INTEREST,
+			"referrer" => "",
+			'recipient' => 'test@my-onoffice.com',
 		];
 
-		$response = [
-			'actionid' => 'urn:onoffice-de-ns:smart:2.5:smartml:action:do',
-			'resourceid' => '',
-			'resourcetype' => 'sendmail',
-			'cacheable' => false,
-			'identifier' => '',
-			'data' => [
-				'meta' => [
-					'cntabsolute' => null,
-				],
-				'records' => [
-					0 => [
-						'id' => 0,
-						'type' => '',
-						'elements' => [
-							'success' => 'success',
-							'readablereport' => 'Es wurde eine E-Mail versendet'."\n\n",
-						],
-					],
-				],
-			],
-			'status' => [
-				'errorcode' => 0,
-				'message' => 'OK',
-			],
-		];
-
+	    $responseJson = file_get_contents(__DIR__.'/resources/ApiResponseDoContactaddress.json');
+	    $response = json_decode($responseJson, true);
 		if (!$success) {
-			$response = $this->getUnsuccessfulResponse(onOfficeSDK::ACTION_ID_DO, 'sendmail');
+			$response = $this->getUnsuccessfulResponse(onOfficeSDK::ACTION_ID_DO, 'contactaddress');
 		}
 
 		$this->_pSDKWrapperMocker->addResponseByParameters
-			(onOfficeSDK::ACTION_ID_DO, 'sendmail', '', $parameters, null, $response);
+			(onOfficeSDK::ACTION_ID_DO, 'contactaddress', '', $parameters, null, $response);
 	}
 
 

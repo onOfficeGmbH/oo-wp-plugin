@@ -117,49 +117,32 @@ class FormPostInterest
 	 */
 	private function sendEmail(FormData $pFormData, string $recipient, $subject = null)
 	{
-		$filledAddressData = $this->_pFormPostInterestConfiguration->getFormAddressCreator()
-			->getAddressDataForEmail($pFormData);
-
-		$filledSearchcriteriaData = $this->_pFormPostInterestConfiguration
-			->getSearchcriteriaFields()
+		$values = $pFormData->getValues();
+		$filledSearchCriteriaData = $this->_pFormPostInterestConfiguration->getSearchcriteriaFields()
 			->getFieldLabelsOfInputs($pFormData->getSearchcriteriaData());
-
-
-		$addressData = $pFormData->getAddressData($this->getFieldsCollection());
-
-		$name = $addressData['Name'] ?? null;
-		$firstName = $addressData['Vorname'] ?? null;
-		$mailInteressent = $addressData['Email'] ?? null;
-
-		$body = 'Sehr geehrte Damen und Herren,'."\n\n"
-				.'ein neuer Interessent hat sich über das Kontaktformular auf Ihrer Webseite '
-				.'eingetragen. Die Adresse ('.sanitize_text_field($firstName).' '.sanitize_text_field($name).') wurde bereits in Ihrem System '
-				.'eingetragen.'."\n\n"
-				."Kontaktdaten des Interessenten:"."\n"
-				.$this->createStringFromInputData($filledAddressData)."\n\n"
-				."Suchkriterien des Interessenten:"."\n"
-				.$this->createStringFromInputData($filledSearchcriteriaData)."\n\n"
-				.'Herzliche Grüße'."\n"
-				.'Ihr onOffice Team';
-
+		$searchCriterias = $this->createStringFromInputData($filledSearchCriteriaData);
+		$message = $values['message'] ?? '';
+		$message .= "\nSuchkriterien des Interessenten:\n".
+					"$searchCriterias";
 		$requestParams = [
-			'anonymousEmailidentity' => true,
-			'body' => $body,
+			'addressdata' => $pFormData->getAddressData($this->getFieldsCollection()),
+			'message' => $message,
 			'subject' => sanitize_text_field($subject),
-			'replyto' => sanitize_email($mailInteressent),
-			'receiver' => [sanitize_email($recipient)],
-			'X-Original-From' => sanitize_email($mailInteressent),
-			'saveToAgentsLog' => false,
+			'formtype' => $pFormData->getFormtype(),
+			'referrer' => filter_input(INPUT_SERVER, 'REQUEST_URI') ?? '',
+			'recipient' => $recipient
 		];
 
+		if ($recipient !== '') {
+			$requestParams['recipient'] = $recipient;
+		}
 		$pSDKWrapper = $this->_pFormPostInterestConfiguration->getSDKWrapper();
-		$pApiClientAction = new APIClientActionGeneric
-			($pSDKWrapper, onOfficeSDK::ACTION_ID_DO, 'sendmail');
-		$pApiClientAction->setParameters($requestParams);
-		$pApiClientAction->addRequestToQueue()->sendRequests();
-
-		if (!$pApiClientAction->getResultStatus()) {
-			throw new ApiClientException($pApiClientAction);
+		$pAPIClientAction = new APIClientActionGeneric
+		($pSDKWrapper, onOfficeSDK::ACTION_ID_DO, 'contactaddress');
+		$pAPIClientAction->setParameters($requestParams);
+		$pAPIClientAction->addRequestToQueue()->sendRequests();
+		if (!$pAPIClientAction->getResultStatus()) {
+			throw new ApiClientException($pAPIClientAction);
 		}
 	}
 
