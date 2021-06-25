@@ -58,6 +58,9 @@ class FieldsCollectionConfiguratorForm
 		$pFieldsCollectionNew = new FieldsCollection;
 		foreach ($pFieldsCollection->getAllFields() as $pField) {
 			$pFieldClone = clone $pField;
+			if (in_array($pFieldClone->getName(), ['message'])) {
+				continue;
+			}
 			if ($pFieldClone->getModule() === onOfficeSDK::MODULE_SEARCHCRITERIA &&
 				$pFieldClone->getType() === FieldTypes::FIELD_TYPE_SINGLESELECT &&
 				in_array($pField->getName(), ['objekttyp', 'regionaler_zusatz']))

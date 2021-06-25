@@ -111,7 +111,7 @@ class TestClassDatabaseChanges
 		$this->assertGreaterThanOrEqual(self::NUM_NEW_TABLES, count($this->_createQueries));
 
 		$dbversion = $this->_pDbChanges->getDbVersion();
-		$this->assertEquals(19, $dbversion);
+		$this->assertEquals(20, $dbversion);
 		return $this->_createQueries;
 	}
 
@@ -155,18 +155,56 @@ class TestClassDatabaseChanges
 	public function testDeleteCommentFieldApplicantSearchForm()
 	{
 		$this->_pWpOption->addOption('oo_plugin_db_version', '18');
+		$formsOutput1 = [
+			(object)[
+				'form_id' => '4',
+				'name' => 'Applicant Search Form',
+				'form_type' => 'applicantsearch',
+			]
+		];
+		$fieldConfigOutput1 = [
+			(object)[
+				'form_fieldconfig_id' => '2',
+				'form_id' => '4',
+				'fieldname' => 'krit_bemerkung_oeffentlich'
+			]
+		];
+
+		$this->_pWPDBMock = $this->getMockBuilder(wpdb::class)
+			->setConstructorArgs(['testUser', 'testPassword', 'testDB', 'testHost'])
+			->getMock();
+
+		$this->_pWPDBMock->expects($this->exactly(4))
+			->method('get_results')
+			->willReturnOnConsecutiveCalls($formsOutput1, $fieldConfigOutput1,$formsOutput1, $fieldConfigOutput1);
+
+		$this->_pWPDBMock->expects($this->exactly(2))->method('delete')
+			->will($this->returnValue(true));
+
+		$this->_pDbChanges = new DatabaseChanges($this->_pWpOption, $this->_pWPDBMock);
+		$this->_pDbChanges->install();
+	}
+
+
+	/**
+	 * @covers \onOffice\WPlugin\Installer\DatabaseChanges::DeleteMessageFieldInterestForm
+	 */
+
+	public function testDeleteMessageFieldInterestForm()
+	{
+		$this->_pWpOption->addOption('oo_plugin_db_version', '19');
 		$formsOutput = [
 			(object)[
 				'form_id' => '2',
-				'name' => 'Applicant Search Form',
-				'form_type' => 'applicantsearch',
+				'name' => 'Interest Form',
+				'form_type' => 'interest',
 			]
 		];
 		$fieldConfigOutput = [
 			(object)[
 				'form_fieldconfig_id' => '1',
 				'form_id' => '2',
-				'fieldname' => 'krit_bemerkung_oeffentlich'
+				'fieldname' => 'message'
 			]
 		];
 
@@ -185,13 +223,12 @@ class TestClassDatabaseChanges
 		$this->_pDbChanges->install();
 	}
 
-
 	/**
 	 *
 	 */
 	public function testMaxVersion()
 	{
-		$this->assertEquals(19, DatabaseChanges::MAX_VERSION);
+		$this->assertEquals(20, DatabaseChanges::MAX_VERSION);
 	}
 
 

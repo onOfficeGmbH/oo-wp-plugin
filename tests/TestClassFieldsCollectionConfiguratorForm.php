@@ -99,6 +99,27 @@ class TestClassFieldsCollectionConfiguratorForm
 	/**
 	 * @throws UnknownFieldException
 	 */
+	public function testConfigureForInterestFormWithPassingMessageField()
+	{
+		$pFieldsCollection = $this->buildFieldsCollectionWithMessageField();
+		$pSubject = new FieldsCollectionConfiguratorForm;
+		$pFieldsCollectionNew = $pSubject->configureForInterestForm($pFieldsCollection);
+		$this->assertCount(1, $pFieldsCollectionNew->getAllFields());
+		foreach ($pFieldsCollectionNew->getAllFields() as $pField) {
+			$pFieldOriginal = $pFieldsCollection->getFieldByModuleAndName
+			($pField->getModule(), $pField->getName());
+			$this->assertNotSame($pFieldOriginal, $pField);
+			$this->assertThat($pField, $this->callback(function (Field $pField) {
+				return
+					($pField->getName() === 'objekttyp' && $pField->getType() === FieldTypes::FIELD_TYPE_MULTISELECT) ||
+					($pField->getName() !== 'message' && $pField->getType() === FieldTypes::FIELD_TYPE_TEXT);
+			}));
+		}
+	}
+
+	/**
+	 * @throws UnknownFieldException
+	 */
 	public function testConfigureForOwnerForm()
 	{
 		$pFieldsCollection = $this->buildFieldsCollectionDifferentModules();
@@ -189,6 +210,21 @@ class TestClassFieldsCollectionConfiguratorForm
 		$pFieldsCollection = new FieldsCollection;
 		$pField1 = new Field('krit_bemerkung_oeffentlich', onOfficeSDK::MODULE_SEARCHCRITERIA);
 		$pField1->setType(FieldTypes::FIELD_TYPE_SINGLESELECT);
+		$pField2 = new Field('objekttyp', onOfficeSDK::MODULE_SEARCHCRITERIA);
+		$pField2->setType(FieldTypes::FIELD_TYPE_SINGLESELECT);
+		$pFieldsCollection->addField($pField1);
+		$pFieldsCollection->addField($pField2);
+		return $pFieldsCollection;
+	}
+
+	/**
+	 * @return FieldsCollection
+	 */
+	private function buildFieldsCollectionWithMessageField(): FieldsCollection
+	{
+		$pFieldsCollection = new FieldsCollection;
+		$pField1 = new Field('message', '');
+		$pField1->setType(FieldTypes::FIELD_TYPE_TEXT);
 		$pField2 = new Field('objekttyp', onOfficeSDK::MODULE_SEARCHCRITERIA);
 		$pField2->setType(FieldTypes::FIELD_TYPE_SINGLESELECT);
 		$pFieldsCollection->addField($pField1);
