@@ -119,12 +119,20 @@ abstract class FormModelBuilder
 			.'templates.dist/'.$directory.'/'.$pattern.'.php');
 		$templateLocalFiles = glob(plugin_dir_path(ONOFFICE_PLUGIN_DIR)
 			.'onoffice-personalized/templates/'.$directory.'/'.$pattern.'.php');
-		$templatesAll = array_merge($templateGlobFiles, $templateLocalFiles);
+			$templateThemeFiles = glob(get_template_directory()
+			.'/onoffice-theme/templates/'.$directory.'/'.$pattern.'.php');
+		
+		$templatesAll = array_merge($templateGlobFiles, $templateLocalFiles, $templateThemeFiles);
 		$templates = array();
 
 		foreach ($templatesAll as $value) {
-			$value = __String::getNew($value)->replace(plugin_dir_path(ONOFFICE_PLUGIN_DIR), '');
-			$templates[$value] = $value;
+			if(strpos($value, 'themes') !== false) {
+				$value = __String::getNew($value)->replace(get_template_directory().'/', '');
+				$templates[$value] = $value;
+			}else{
+				$value = __String::getNew($value)->replace(plugin_dir_path(ONOFFICE_PLUGIN_DIR), '');
+				$templates[$value] = $value;
+			}
 		}
 
 		return $templates;

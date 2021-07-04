@@ -112,7 +112,14 @@ add_action('plugins_loaded', function() {
 	// Check 'onoffice-personalized' Folder exists
 	$onofficePersonalizedFolderLanguages = plugin_dir_path(__DIR__) . 'onoffice-personalized/languages';
 	$onofficePersonalizedFolder = plugin_dir_path(__DIR__) . 'onoffice-personalized';
-	if (is_dir($onofficePersonalizedFolderLanguages)) {
+	// Check 'onoffice-theme' Folder exists
+	$onofficeThemeFolderLanguages = get_template_directory() . '/onoffice-theme/languages';
+	$onofficeThemeFolder = get_template_directory() . '/onoffice-theme';
+
+	if (is_dir($onofficeThemeFolderLanguages)) {
+		load_textdomain('onoffice', $onofficeThemeFolder.'/languages/onoffice-'.get_locale().'.mo');
+		load_textdomain('onoffice-for-wp-websites', $onofficeThemeFolder.'/languages/onoffice-for-wp-websites-'.get_locale().'.mo');
+	} elseif (is_dir($onofficePersonalizedFolderLanguages)) {
 		load_plugin_textdomain('onoffice', false, basename($onofficePersonalizedFolder) . '/languages');
 	} else {
 		load_plugin_textdomain('onoffice', false, basename(ONOFFICE_PLUGIN_DIR) . '/languages');

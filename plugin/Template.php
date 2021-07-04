@@ -122,6 +122,9 @@ class Template
 	 */
 	protected function buildFilePath(): string
 	{
+		if(strpos($this->_templateName, 'onoffice-theme') !== false) {
+			return get_template_directory().'/'.$this->_templateName;
+		}
 		return WP_PLUGIN_DIR.'/'.$this->_templateName;
 	}
 
