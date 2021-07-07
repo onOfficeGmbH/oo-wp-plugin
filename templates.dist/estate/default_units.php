@@ -36,16 +36,6 @@
 		<?php echo $pEstates->getFieldLabel( $field ) .': '.(is_array($value) ? esc_html(implode(', ', $value)) : esc_html($value)); ?><br>
 
 	<?php endforeach; ?>
-	<h3><?php esc_html_e('Contact person of entity:', 'onoffice');?></h3>
-	<?php foreach ( $pEstates->getEstateContacts() as $contactData ) : ?>
-	<ul>
-		<b><?php echo $contactData['Vorname']; ?> <?php echo esc_html($contactData['Name']); ?></b>
-		<li><?php esc_html_e('Phone:', 'onoffice');?><?php echo esc_html($contactData['defaultphone']); ?></li>
-		<li><?php esc_html_e('Fax:', 'onoffice');?> <?php echo esc_html($contactData['defaultfax']); ?></li>
-		<li>
-		<?php esc_html_e('E-Mail:', 'onoffice');?> <?php echo esc_html($contactData['defaultemail']); ?></li>
-	</ul>
-<?php endforeach; ?>
 <br>
 
 <?php endwhile; ?>
