@@ -60,6 +60,9 @@ class InputModelOptionFactoryDetailView
 	const KEY_TYPE = 'type';
 
 	/** @var string */
+	const INPUT_SHOW_STATUS = 'show_status';
+
+	/** @var string */
 	private $_optionGroup = null;
 
 
@@ -85,6 +88,9 @@ class InputModelOptionFactoryDetailView
 		],
 		self::INPUT_MOVIE_LINKS => [
 			self::KEY_TYPE => InputModelOption::SETTING_TYPE_STRING,
+		],
+		self::INPUT_SHOW_STATUS => [
+			self::KEY_TYPE => InputModelOption::SETTING_TYPE_BOOLEAN
 		]
 	];
 

@@ -115,7 +115,6 @@ class AdminPageEstateListSettings
 		$pFormModelRecordsFilter->addInputModel($pInputModelRandomSort);
 
 		$pFormModelRecordsFilter->addInputModel($pInputModelListType);
-		$pFormModelRecordsFilter->addInputModel($pInputModelShowStatus);
 		$this->addFormModel($pFormModelRecordsFilter);
 
 		$pInputModelTemplate = $pFormModelBuilder->createInputModelTemplate('estate');
@@ -124,6 +123,7 @@ class AdminPageEstateListSettings
 		$pFormModelLayoutDesign->setGroupSlug(self::FORM_VIEW_LAYOUT_DESIGN);
 		$pFormModelLayoutDesign->setLabel(__('Layout & Design', 'onoffice-for-wp-websites'));
 		$pFormModelLayoutDesign->addInputModel($pInputModelTemplate);
+		$pFormModelLayoutDesign->addInputModel($pInputModelShowStatus);
 		$this->addFormModel($pFormModelLayoutDesign);
 
 		$pInputModelPictureTypes = $pFormModelBuilder->createInputModelPictureTypes();

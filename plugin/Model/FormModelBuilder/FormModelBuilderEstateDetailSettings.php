@@ -291,6 +291,23 @@ class FormModelBuilderEstateDetailSettings
 	}
 
 	/**
+	 * @return InputModelOption
+	 * @throws ExceptionInputModelMissingField
+	 */
+
+	public function createInputModelShowStatus()
+	{
+		$labelShowStatus = __('Show Estate Status', 'onoffice-for-wp-websites');
+		$pInputModelShowStatus = $this->_pInputModelDetailViewFactory->create
+		(InputModelOptionFactoryDetailView::INPUT_SHOW_STATUS, $labelShowStatus);
+		$pInputModelShowStatus->setHtmlType(InputModelOption::HTML_TYPE_CHECKBOX);
+		$pInputModelShowStatus->setValue($this->_pDataDetailView->getShowStatus());
+		$pInputModelShowStatus->setValuesAvailable(1);
+
+		return $pInputModelShowStatus;
+	}
+
+	/**
 	 *
 	 * @return array
 	 *
