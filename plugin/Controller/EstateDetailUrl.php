@@ -26,13 +26,13 @@ namespace onOffice\WPlugin\Controller;
 
 class EstateDetailUrl
 {
-
+	const MAXIMUM_WORD_TITLE = 5;
 	/**
 	 * @param string $url
 	 * @param int $estateId
 	 * @return string
 	 */
-	public function createEstateDetailLink(string $url, int $estateId): string
+	public function createEstateDetailLink(string $url, int $estateId, string $title = null): string
 	{
 		$urlLsSwitcher = $url;
 
@@ -44,12 +44,44 @@ class EstateDetailUrl
 				parse_str($arguments, $getParameters);
 			}
 
+			$urlTemp = $estateId;
+
+			if ($this->isOptionShowTitleUrl() && !empty($title)) {
+				$urlTemp .= $this->getSanitizeTitle($title);
+			}
+
 			if (array_key_exists('lang', $getParameters) && $getParameters['lang'] != null) {
-				$urlLsSwitcher = str_replace('?', $estateId.'?', $url);
+				$urlLsSwitcher = str_replace('?', $urlTemp.'?', $url);
 			} else {
-				$urlLsSwitcher .= $estateId;
+				$urlLsSwitcher .= $urlTemp;
 			}
 		}
+
 		return $urlLsSwitcher;
+	}
+
+	/**
+	 *
+	 * @return bool
+	 *
+	 */
+	public function isOptionShowTitleUrl()
+	{
+		return get_option('onoffice-detail-view-showTitleUrl',  false);
+	}
+
+	/**
+	 * @param string $title
+	 * @return string
+	 */
+	public function getSanitizeTitle(string $title): string
+	{
+		$sanitizeTitle = sanitize_title($title);
+		$arrSanitizeTitle = explode('-', $sanitizeTitle);
+		if (count($arrSanitizeTitle) > self::MAXIMUM_WORD_TITLE) {
+			$sanitizeTitle = implode('-', array_splice($arrSanitizeTitle, 0, self::MAXIMUM_WORD_TITLE));
+		}
+
+		return '-' . $sanitizeTitle;
 	}
 }

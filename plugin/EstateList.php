@@ -375,11 +375,11 @@ class EstateList
 		if (false === $currentRecord) {
 			return false;
 		}
-
 		$this->_currentEstate['id'] = $currentRecord['id'];
 		$recordElements = $currentRecord['elements'];
 		$this->_currentEstate['mainId'] = $recordElements['mainLangId'] ??
 			$this->_currentEstate['id'];
+		$this->_currentEstate['title'] = $currentRecord['elements']['objekttitel'] ?? '';
 
 		$recordModified = $pEstateFieldModifierHandler->processRecord($currentRecord['elements']);
 		$recordRaw = $this->_recordsRaw[$this->_currentEstate['id']]['elements'];
@@ -424,12 +424,13 @@ class EstateList
 	{
 		$pageId = $this->_pEnvironment->getDataDetailViewHandler()
 			->getDetailView()->getPageId();
-		$fullLink = '#';
 
+		$fullLink = '#';
 		if ($pageId !== 0) {
 			$estate = $this->_currentEstate['mainId'];
+			$title = $this->_currentEstate['title'] ?? '';
 			$url = get_page_link($pageId);
-			$fullLink = $this->_pLanguageSwitcher->createEstateDetailLink($url, $estate);
+			$fullLink = $this->_pLanguageSwitcher->createEstateDetailLink($url, $estate, $title);
 		}
 
 		return $fullLink;

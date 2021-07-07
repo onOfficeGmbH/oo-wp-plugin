@@ -47,10 +47,37 @@ class AdminPageModules
 
 	public function __construct($pageSlug)
 	{
+		$this->addFormModelDetailView($pageSlug);
 		$this->addFormModelFavorites($pageSlug);
 		$this->addFormModelMapProvider($pageSlug);
 
 		parent::__construct($pageSlug);
+	}
+
+    /**
+     *
+     * @param string $pageSlug
+     *
+     */
+	private function addFormModelDetailView(string $pageSlug)
+	{
+		$groupSlugView = 'onoffice-detail-view';
+		$showTitleInUrl = __('Show title in URL', 'onoffice-for-wp-websites');
+		$pInputModelShowTitleUrl = new InputModelOption($groupSlugView, 'showTitleUrl',
+			$showTitleInUrl, InputModelOption::SETTING_TYPE_BOOLEAN);
+		$pInputModelShowTitleUrl->setHtmlType(InputModelOption::HTML_TYPE_CHECKBOX);
+		$pInputModelShowTitleUrl->setValuesAvailable(1);
+		$pInputModelShowTitleUrl->setValue(get_option($pInputModelShowTitleUrl->getIdentifier()) == 1);
+		$pInputModelShowTitleUrl->setDescriptionText('When checked, the estate title will be part of the detail view\'s URLs.
+		The title will be after the data record number, eg. <code>/1234-nice-location-with-view</code>. Not more than the first five words of the title will be used.');
+
+		$pFormModel = new FormModel();
+		$pFormModel->addInputModel($pInputModelShowTitleUrl);
+		$pFormModel->setGroupSlug($groupSlugView);
+		$pFormModel->setPageSlug($pageSlug);
+		$pFormModel->setLabel(__('Detail View URLs', 'onoffice-for-wp-websites'));
+
+		$this->addFormModel($pFormModel);
 	}
 
 

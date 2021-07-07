@@ -75,4 +75,69 @@ class TestClassEstateDetailUrl
 
 		$this->assertEquals($expectedUrl, $pInstance->createEstateDetailLink($url, $estateId));
 	}
+
+	/**
+	 * @throws \DI\DependencyException
+	 * @throws \DI\NotFoundException
+	 */
+	public function testUrlWithTitle()
+	{
+		add_option('onoffice-detail-view-showTitleUrl', true);
+		$estateId = 123;
+		$pInstance = $this->_pContainer->get(EstateDetailUrl::class);
+		$url = 'https://www.onoffice.de/detail/';
+		$title = 'String Slug';
+		$expectedUrl = 'https://www.onoffice.de/detail/123-string-slug';
+
+		$this->assertEquals($expectedUrl, $pInstance->createEstateDetailLink($url, $estateId, $title));
+	}
+
+	/**
+	 * @throws \DI\DependencyException
+	 * @throws \DI\NotFoundException
+	 */
+	public function testUrlWithTitleLimitCharacter()
+	{
+		add_option('onoffice-detail-view-showTitleUrl', true);
+		$estateId = 123;
+		$pInstance = $this->_pContainer->get(EstateDetailUrl::class);
+		$url = 'https://www.onoffice.de/detail/';
+		$title = 'Human readable URLs showing ID and title';
+		$expectedUrl = 'https://www.onoffice.de/detail/123-human-readable-urls-showing-id';
+
+		$this->assertEquals($expectedUrl, $pInstance->createEstateDetailLink($url, $estateId, $title));
+	}
+
+	/**
+	 * @throws \DI\DependencyException
+	 * @throws \DI\NotFoundException
+	 */
+	public function testUrlWithTitleNotSetOptionShowUrlAndTitle()
+	{
+		add_option('onoffice-detail-view-showTitleUrl', false);
+
+		$estateId = 123;
+		$pInstance = $this->_pContainer->get(EstateDetailUrl::class);
+		$url = 'https://www.onoffice.de/detail/';
+		$title = 'Human readable URLs showing ID and title';
+		$expectedUrl = 'https://www.onoffice.de/detail/123';
+
+		$this->assertEquals($expectedUrl, $pInstance->createEstateDetailLink($url, $estateId, $title));
+	}
+
+	/**
+	 * @throws \DI\DependencyException
+	 * @throws \DI\NotFoundException
+	 */
+	public function testUrlWithTitleAndParameter()
+	{
+		add_option('onoffice-detail-view-showTitleUrl', true);
+		$estateId = 123;
+		$pInstance = $this->_pContainer->get(EstateDetailUrl::class);
+		$url = 'https://www.onoffice.de/detail/?lang=en';
+		$title = 'String Slug';
+		$expectedUrl = 'https://www.onoffice.de/detail/123-string-slug?lang=en';
+
+		$this->assertEquals($expectedUrl, $pInstance->createEstateDetailLink($url, $estateId, $title));
+	}
 }

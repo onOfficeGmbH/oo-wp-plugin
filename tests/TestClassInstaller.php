@@ -86,5 +86,6 @@ class TestClassInstaller
 		$this->assertFalse(get_option('onoffice-favorization-favButtonLabelFav'));
 		$this->assertFalse(get_option('onoffice-settings-apisecret'));
 		$this->assertFalse(get_option('onoffice-settings-apikey'));
+		$this->assertFalse(get_option('onoffice-detail-view-showTitleUrl'));
 	}
 }

@@ -129,7 +129,7 @@ class InputModelRenderer
 
 			case InputModelOption::HTML_TYPE_CHECKBOX:
 				$pInstance = new InputFieldCheckboxRenderer($elementName,
-					$pInputModel->getValuesAvailable());
+					$pInputModel->getValuesAvailable(),  $pInputModel->getDescriptionText());
 				$pInstance->setCheckedValues($pInputModel->getValue());
 				break;
 
