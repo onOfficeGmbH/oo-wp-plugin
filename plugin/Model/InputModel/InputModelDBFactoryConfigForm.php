@@ -77,6 +77,9 @@ class InputModelDBFactoryConfigForm
 	/** */
 	const INPUT_FORM_ESTATE_CONTEXT_AS_HEADING = 'show_estate_context';
 
+    /** */
+    const INPUT_FORM_CONTACT_TYPE = 'contactType';
+
 
 	/** @var array */
 	private $_inputConfig = [
@@ -127,6 +130,10 @@ class InputModelDBFactoryConfigForm
 		self::INPUT_FORM_ESTATE_CONTEXT_AS_HEADING => [
 			self::KEY_TABLE => 'oo_plugin_forms',
 			self::KEY_FIELD => 'show_estate_context',
+		],
+		self::INPUT_FORM_CONTACT_TYPE => [
+			self::KEY_TABLE => 'oo_plugin_forms',
+			self::KEY_FIELD => 'contact_type',
 		],
 
 		InputModelDBFactory::INPUT_FIELD_CONFIG => [

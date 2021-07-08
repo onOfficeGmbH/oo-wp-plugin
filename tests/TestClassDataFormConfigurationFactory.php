@@ -362,6 +362,7 @@ class TestClassDataFormConfigurationFactory
 				'individual_fieldname' => '0',
 				'availableOptions' => '0',
 				'required' => '1',
+				'contact_type' => '',
 			],
 			[
 				'form_fieldconfig_id' => '2',
@@ -373,6 +374,7 @@ class TestClassDataFormConfigurationFactory
 				'individual_fieldname' => '0',
 				'availableOptions' => '0',
 				'required' => '1',
+				'contact_type' => '',
 			],
 			[
 				'form_fieldconfig_id' => '3',
@@ -384,6 +386,7 @@ class TestClassDataFormConfigurationFactory
 				'individual_fieldname' => '0',
 				'availableOptions' => '1',
 				'required' => '0',
+				'contact_type' => '',
 			],
 		];
 
@@ -436,6 +439,7 @@ class TestClassDataFormConfigurationFactory
 			'newsletter' => '1',
 			'availableOptions' => '1',
 			'show_estate_context' => '0',
+			'contact_type' => '',
 		];
 	}
 }

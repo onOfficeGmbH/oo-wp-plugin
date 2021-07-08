@@ -67,6 +67,9 @@ class DataFormConfiguration
 	/** @var bool */
 	private $_showEstateContext = false;
 
+    /** @var bool */
+    private $_contactType = '';
+
 	/**
 	 *
 	 * Override to set default fields for new, empty forms
@@ -128,7 +131,9 @@ class DataFormConfiguration
 	public function setShowEstateContext(bool $showEstateContext)
 		{ $this->_showEstateContext = $showEstateContext; }
 
-
+    /** @param string $contactTypeField */
+    public function setContactTypeField(string $contactTypeField)
+		{ $this->_contactType = $contactTypeField; }
 	/**
 	 *
 	 * @param string $input
@@ -182,4 +187,8 @@ class DataFormConfiguration
 	/** @return bool */
 	public function getShowEstateContext(): bool
 		{ return $this->_showEstateContext; }
+
+    /** @return string */
+    public function getContactType(): string
+		{ return $this->_contactType; }
 }

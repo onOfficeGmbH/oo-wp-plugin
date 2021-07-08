@@ -68,10 +68,13 @@ class FormAddressCreator
 	 * @throws NotFoundException
 	 */
 	public function createOrCompleteAddress(
-		FormData $pFormData, bool $mergeExisting = false): int
+		FormData $pFormData, bool $mergeExisting = false, string $contactType = ''): int
 	{
 		$requestParams = $this->getAddressDataForApiCall($pFormData);
 		$requestParams['checkDuplicate'] = $mergeExisting;
+		if (!empty($contactType)) {
+			$requestParams['ArtDaten'] = $contactType;
+		}
 
 		$pApiClientAction = new APIClientActionGeneric
 			($this->_pSDKWrapper, onOfficeSDK::ACTION_ID_CREATE, 'address');

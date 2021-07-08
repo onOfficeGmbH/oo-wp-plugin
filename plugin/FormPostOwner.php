@@ -88,9 +88,10 @@ class FormPostOwner
 		$recipient = $pDataFormConfiguration->getRecipient();
 		$subject = $pDataFormConfiguration->getSubject();
 		$checkduplicate = $pDataFormConfiguration->getCheckDuplicateOnCreateAddress();
+		$contactType = $pDataFormConfiguration->getContactType();
 
 		$addressId = $this->_pFormPostOwnerConfiguration->getFormAddressCreator()
-			->createOrCompleteAddress($pFormData, $checkduplicate);
+			->createOrCompleteAddress($pFormData, $checkduplicate, $contactType);
 		$estateData = $this->getEstateData();
 		$estateId = $this->createEstate($estateData);
 		$this->createOwnerRelation($estateId, $addressId);

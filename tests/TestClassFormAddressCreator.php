@@ -208,7 +208,7 @@ class TestClassFormAddressCreator
 		$this->_pSDKWrapper->addResponseByParameters(onOfficeSDK::ACTION_ID_CREATE, 'address', '', [
 			'testaddressfield1varchar' => 'testValue',
 			'testaddressfield1multiselect' => ['hut','tut'],
-			'checkDuplicate' => false
+			'checkDuplicate' => false,
 		], null, $response);
 	}
 }

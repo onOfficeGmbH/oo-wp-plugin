@@ -26,8 +26,12 @@ use DI\ContainerBuilder;
 use DI\DependencyException;
 use DI\NotFoundException;
 use Exception;
+use onOffice\SDK\onOfficeSDK;
+use onOffice\WPlugin\API\APIClientCredentialsException;
 use onOffice\WPlugin\DataFormConfiguration\DataFormConfiguration;
 use onOffice\WPlugin\DataFormConfiguration\DataFormConfigurationFactory;
+use onOffice\WPlugin\Field\Collection\FieldLoaderGeneric;
+use onOffice\WPlugin\Field\Collection\FieldsCollectionBuilder;
 use onOffice\WPlugin\Field\Collection\FieldsCollectionBuilderShort;
 use onOffice\WPlugin\Model\FormModel;
 use onOffice\WPlugin\Model\InputModel\InputModelDBFactory;
@@ -312,6 +316,45 @@ class FormModelBuilderDBForm
 
 		return $pInputModelFormLimitResult;
 	}
+
+    /**
+     * @return InputModelDB
+     */
+    public function createInputModelContactType()
+    {
+        $labelContactType = __('Contact Type', 'onoffice-for-wp-websites');
+        $pInputModelFormContactType = $this->getInputModelDBFactory()->create
+        (InputModelDBFactoryConfigForm::INPUT_FORM_CONTACT_TYPE, $labelContactType);
+        $field = $pInputModelFormContactType->getField();
+        $pInputModelFormContactType->setHtmlType(InputModelOption::HTML_TYPE_SELECT);
+        $availableContactType = array('' => 'No contact type') + $this->getDataContactType(onOfficeSDK::MODULE_ADDRESS);
+        $pInputModelFormContactType->setValuesAvailable($availableContactType);
+        $selectedValue = $this->getValue($field);
+        $pInputModelFormContactType->setValue($selectedValue);
+
+        return $pInputModelFormContactType;
+    }
+
+    public function getDataContactType($module)
+    {
+        try {
+            $pFieldLoader = $this->_pContainer->get(FieldLoaderGeneric::class);
+            $pFieldCollectionAddressEstate = $this->_pContainer->get(FieldsCollectionBuilder::class)
+                ->buildFieldsCollection($pFieldLoader);
+            $fields = $pFieldCollectionAddressEstate->getFieldsByModule($module);
+            $result = [];
+            if (!empty($fields['ArtDaten']->getPermittedvalues())) {
+                foreach ($fields['ArtDaten']->getPermittedvalues() as $field => $type) {
+                    $result[$field] = $field;
+                }
+            }
+
+            return $result;
+        } catch (APIClientCredentialsException $pCredentialsException) {
+            return [];
+        }
+
+    }
 
 	/**
 	 * @return InputModelDB

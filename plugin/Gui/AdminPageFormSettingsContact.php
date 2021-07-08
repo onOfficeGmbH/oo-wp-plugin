@@ -67,6 +67,9 @@ class AdminPageFormSettingsContact
 	/** @var bool */
 	private $_showEstateContextCheckbox = false;
 
+    /** @var bool */
+    private $_showContactTypeSelect = false;
+
 
 	/**
 	 *
@@ -116,6 +119,11 @@ class AdminPageFormSettingsContact
 		if ($this->_showEstateContextCheckbox) {
 			$pInputModel = $pInputModelBuilder->build(InputModelDBFactoryConfigForm::INPUT_FORM_ESTATE_CONTEXT_AS_HEADING);
 			$pFormModelFormSpecific->addInputModel($pInputModel);
+		}
+
+		if ($this->_showContactTypeSelect) {
+			$pInputModelContactType = $pFormModelBuilder->createInputModelContactType();
+			$pFormModelFormSpecific->addInputModel($pInputModelContactType);
 		}
 
 		$this->addFormModel($pFormModelFormSpecific);
@@ -234,4 +242,8 @@ class AdminPageFormSettingsContact
 	/** @param bool $showEstateContextCheckbox */
 	public function setShowEstateContextCheckbox(bool $showEstateContextCheckbox)
 		{ $this->_showEstateContextCheckbox = $showEstateContextCheckbox; }
+
+    /** @param bool $showContactTypeSelect */
+    public function setShowContactTypeSelect(bool $showContactTypeSelect)
+		{ $this->_showContactTypeSelect = $showContactTypeSelect; }
 }

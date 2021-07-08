@@ -34,7 +34,7 @@ use const ABSPATH;
 class DatabaseChanges implements DatabaseChangesInterface
 {
 	/** @var int */
-	const MAX_VERSION = 19;
+	const MAX_VERSION = 20;
 
 	/** @var WPOptionWrapperBase */
 	private $_pWpOption;
@@ -152,6 +152,11 @@ class DatabaseChanges implements DatabaseChangesInterface
 			$this->deleteCommentFieldApplicantSearchForm();
 			$dbversion = 19;
 		}
+
+        if ($dbversion == 19) {
+            dbDelta( $this->getQueryAddColumnContactTypePluginFormTable() );
+            $dbversion = 20;
+        }
 
 		$this->_pWpOption->updateOption( 'oo_plugin_db_version', $dbversion, true);
 	}
@@ -639,6 +644,16 @@ class DatabaseChanges implements DatabaseChangesInterface
 					array('form_fieldconfig_id' => $fieldComment->form_fieldconfig_id));
 			}
 		}
+	}
+
+    public function getQueryAddColumnContactTypePluginFormTable(): string
+    {
+        $prefix = $this->getPrefix();
+        $tableName = $prefix."oo_plugin_forms";
+
+        return "ALTER TABLE $tableName 
+				ADD COLUMN `contact_type` varchar(255) NULL DEFAULT NULL 
+				";
 	}
 
 
