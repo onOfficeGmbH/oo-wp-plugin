@@ -57,6 +57,7 @@ class TestClassFieldLoaderGeneric
 			'showTable' => true,
 			'language' => 'ENG',
 			'modules' => ['address', 'estate'],
+			'realDataTypes' => true
 		];
 		$pSDKWrapper = new SDKWrapperMocker();
 		$responseGetFields = json_decode
@@ -83,13 +84,13 @@ class TestClassFieldLoaderGeneric
 	public function testLoad()
 	{
 		$result = iterator_to_array($this->_pFieldLoader->load());
-		$this->assertCount(204, $result);
+		$this->assertCount(206, $result);
 
 		foreach ($result as $fieldname => $fieldProperties) {
 			$this->assertInternalType('string', $fieldname);
 			$actualModule = $fieldProperties['module'];
 			$this->assertContains($actualModule,
-				[onOfficeSDK::MODULE_ADDRESS, onOfficeSDK::MODULE_ESTATE], 'Module: '.$actualModule);
+				[onOfficeSDK::MODULE_ADDRESS, onOfficeSDK::MODULE_ESTATE], 'Module: ' . $actualModule);
 			$this->assertArrayHasKey('module', $fieldProperties);
 			$this->assertArrayHasKey('label', $fieldProperties);
 			$this->assertArrayHasKey('type', $fieldProperties);
@@ -99,6 +100,9 @@ class TestClassFieldLoaderGeneric
 			$this->assertArrayHasKey('content', $fieldProperties);
 			if ($actualModule == onOfficeSDK::MODULE_ADDRESS && !empty($fieldProperties['permittedvalues'])) {
 				$this->assertArrayNotHasKey('Systembenutzer', $fieldProperties['permittedvalues']);
+			}
+			if ($actualModule == onOfficeSDK::MODULE_ADDRESS && !empty($fieldProperties['type'])) {
+				$this->assertFalse(in_array($fieldProperties['type'], ['user', 'datei', 'redhint', 'blackhint', 'dividingline']));
 			}
 		}
 	}
