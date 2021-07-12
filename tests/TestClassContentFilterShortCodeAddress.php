@@ -56,6 +56,7 @@ class TestClassContentFilterShortCodeAddress
 	 */
 	public function prepare()
 	{
+		add_option('onoffice-pagination-paginationbyonoffice', 1);
 		$pContainerBuilder = new ContainerBuilder;
 		$pContainerBuilder->addDefinitions(ONOFFICE_DI_CONFIG_PATH);
 		$this->_pContainer = $pContainerBuilder->build();

@@ -100,6 +100,13 @@ $dontEcho = array("objekttitel", "objektbeschreibung", "lage", "ausstatt_beschr"
 		</div>
 	<?php endwhile; ?>
 </div>
+<div>
+	<?php
+	if (get_option('onoffice-pagination-paginationbyonoffice')) {
+		wp_link_pages();
+	}
+	?>
+</div>
 <?php if (Favorites::isFavorizationEnabled()) { ?>
 <script>
 	jQuery(document).ready(function($) {

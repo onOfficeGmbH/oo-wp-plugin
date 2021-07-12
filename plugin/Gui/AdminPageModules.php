@@ -49,6 +49,7 @@ class AdminPageModules
 	{
 		$this->addFormModelFavorites($pageSlug);
 		$this->addFormModelMapProvider($pageSlug);
+		$this->addFormModelPagination($pageSlug);
 
 		parent::__construct($pageSlug);
 	}
@@ -119,6 +120,30 @@ class AdminPageModules
 		$this->addFormModel($pFormModel);
 	}
 
+	/**
+	 * @param string $pageSlug
+	 */
+	private function addFormModelPagination(string $pageSlug)
+	{
+		$groupSlugPaging = 'onoffice-pagination';
+		$pagingLabel = __('Pagination', 'onoffice-for-wp-websites');
+		$pInputModelPagingProvider = new InputModelOption($groupSlugPaging, 'paginationbyonoffice',
+			$pagingLabel, InputModelOption::SETTING_TYPE_NUMBER);
+		$pInputModelPagingProvider->setHtmlType(InputModelOption::HTML_TYPE_RADIO);
+		$selectedValue = get_option($pInputModelPagingProvider->getIdentifier(), 0);
+		$pInputModelPagingProvider->setValue($selectedValue);
+		$pInputModelPagingProvider->setValuesAvailable([
+			0 => __('By WP Theme', 'onoffice-for-wp-websites'),
+			1 => __('By onOffice-Plugin', 'onoffice-for-wp-websites')
+		]);
+		$pFormModel = new FormModel();
+		$pFormModel->addInputModel($pInputModelPagingProvider);
+		$pFormModel->setGroupSlug($groupSlugPaging);
+		$pFormModel->setPageSlug($pageSlug);
+		$pFormModel->setLabel($pagingLabel);
+
+		$this->addFormModel($pFormModel);
+	}
 
 	/**
 	 *

@@ -48,3 +48,10 @@
 		</div>
 	<?php } ?>
 </div>
+<div>
+	<?php
+	if (get_option('onoffice-pagination-paginationbyonoffice')) {
+		wp_link_pages();
+	}
+	?>
+</div>

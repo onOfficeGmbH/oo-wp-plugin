@@ -54,6 +54,7 @@ class TestClassSearchParameters
 		$this->_pModel->setParameters(['ort' => 'Aachen']);
 		$this->_pModel->setAllowedGetParameters(['ort']);
 		$this->set_permalink_structure('/%postname%/');
+		add_option('onoffice-pagination-paginationbyonoffice', 1);
 	}
 
 

@@ -50,3 +50,10 @@
 
 <?php endwhile; ?>
 <br>
+<div>
+	<?php
+	if (get_option('onoffice-pagination-paginationbyonoffice')) {
+		wp_link_pages();
+	}
+	?>
+</div>
