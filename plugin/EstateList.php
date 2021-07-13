@@ -35,6 +35,7 @@ use onOffice\WPlugin\Controller\GeoPositionFieldHandler;
 use onOffice\WPlugin\DataView\DataListView;
 use onOffice\WPlugin\DataView\DataView;
 use onOffice\WPlugin\DataView\DataViewFilterableFields;
+use onOffice\WPlugin\DataView\DataViewSimilarEstates;
 use onOffice\WPlugin\DataView\UnknownViewException;
 use onOffice\WPlugin\Field\Collection\FieldsCollectionFieldDuplicatorForGeoEstate;
 use onOffice\WPlugin\Field\DistinctFieldsHandler;
@@ -166,7 +167,6 @@ class EstateList
 		{
 			$pDataListView = $this->_pDataView;
 		}
-
 		$this->_pEnvironment->getFieldnames()->loadLanguage();
 		$this->loadRecords($currentPage);
 
@@ -296,6 +296,15 @@ class EstateList
 		// only do georange search if requested in listview configuration
 		if ($pListView instanceof DataViewFilterableFields &&
 			in_array(GeoPosition::FIELD_GEO_POSITION, $pListView->getFilterableFields(), true)) {
+			$geoRangeSearchParameters = $this->getGeoSearchBuilder()->buildParameters();
+
+			if ($geoRangeSearchParameters !== []) {
+				$requestParams['georangesearch'] = $geoRangeSearchParameters;
+			}
+		}
+
+		// only do georange search if requested in similar estate configuration
+		if ($pListView instanceof DataViewSimilarEstates) {
 			$geoRangeSearchParameters = $this->getGeoSearchBuilder()->buildParameters();
 
 			if ($geoRangeSearchParameters !== []) {

@@ -1,0 +1,229 @@
+{
+  "parameters": {
+    "data": [
+      "referenz",
+      "reserviert",
+      "verkauft",
+      "exclusive",
+      "neu",
+      "top_angebot",
+      "preisreduktion",
+      "courtage_frei",
+      "objekt_des_tages",
+      "vermarktungsart"
+    ],
+    "filter": {
+      "veroeffentlichen": [
+        {
+          "op": "=",
+          "val": 1
+        }
+      ],
+      "Id": [
+        {
+          "op": "=",
+          "val": 15
+        }
+      ]
+    },
+    "estatelanguage": "ENG",
+    "outputlanguage": "ENG",
+    "listlimit": 1,
+    "formatoutput": false,
+    "addMainLangId": true,
+    "listoffset": 0
+  },
+  "response": {
+    "actionid": "urn:onoffice-de-ns:smart:2.5:smartml:action:read",
+    "resourceid": "",
+    "resourcetype": "estate",
+    "cacheable": true,
+    "identifier": "",
+    "data": {
+      "meta": {
+        "cntabsolute": 9
+      },
+      "records": [
+        {
+          "id": 15,
+          "type": "estate",
+          "elements": {
+            "reserviert": "0",
+            "verkauft": "1",
+            "vermarktungsart": "kauf",
+            "referenz": "0",
+            "exclusive": "0",
+            "neu": "0",
+            "top_angebot": "0",
+            "preisreduktion": "0",
+            "courtage_frei": "0",
+            "objekt_des_tages": "0",
+            "virtualStreet": "",
+            "virtualHouseNumber": "",
+            "laengengrad": "0.00000",
+            "breitengrad": "0.00000",
+            "virtualLatitude": "0.00000",
+            "virtualLongitude": "0.00000",
+            "strasse": "",
+            "showGoogleMap": "1",
+            "hausnummer": "",
+            "objekttitel": "",
+            "ort": "",
+            "objektnr_extern": "DJ636",
+            "plz": "",
+            "land": "DEU",
+            "mainLangId": null
+          }
+        },
+        {
+          "id": 1051,
+          "type": "estate",
+          "elements": {
+            "Id": "1051",
+            "objektart": "haus",
+            "objekttyp": "doppelhaushaelfte",
+            "virtualAddress": "0",
+            "objektadresse_freigeben": "0",
+            "reserviert": "0",
+            "verkauft": "0",
+            "vermarktungsart": "miete",
+            "referenz": "0",
+            "exclusive": "0",
+            "neu": "0",
+            "top_angebot": "0",
+            "preisreduktion": "1",
+            "courtage_frei": "0",
+            "objekt_des_tages": "0",
+            "virtualStreet": "",
+            "virtualHouseNumber": "",
+            "laengengrad": "6.13455",
+            "breitengrad": "50.78580",
+            "virtualLatitude": "0.00000",
+            "virtualLongitude": "0.00000",
+            "strasse": "Charlottenburger Allee",
+            "showGoogleMap": "1",
+            "hausnummer": "",
+            "objekttitel": "hallo<script>alert(\"hallo\");<\/script>",
+            "ort": "Aachen \/ Rothe Erde",
+            "objektnr_extern": "UT591",
+            "plz": "52068",
+            "land": "DEU",
+            "mainLangId": null
+          }
+        },
+        {
+          "id": 1082,
+          "type": "estate",
+          "elements": {
+            "Id": "1082",
+            "objektart": "einzelhandel",
+            "objekttyp": "einfamilienhaus",
+            "virtualAddress": "1",
+            "objektadresse_freigeben": "0",
+            "reserviert": "0",
+            "verkauft": "0",
+            "vermarktungsart": "kauf",
+            "referenz": "0",
+            "exclusive": "0",
+            "neu": "0",
+            "top_angebot": "0",
+            "preisreduktion": "0",
+            "courtage_frei": "0",
+            "objekt_des_tages": "0",
+            "virtualStreet": "D\u00fcnenstra\u00dfe",
+            "virtualHouseNumber": "12",
+            "laengengrad": "8.39213",
+            "breitengrad": "55.03719",
+            "virtualLatitude": "55.01597",
+            "virtualLongitude": "8.42401",
+            "strasse": "Ellenbogen",
+            "showGoogleMap": "1",
+            "hausnummer": "20",
+            "objekttitel": "Sch\u00f6nes Haus",
+            "ort": "List",
+            "objektnr_extern": "GH203",
+            "plz": "25992",
+            "land": "DEU",
+            "mainLangId": null
+          }
+        },
+        {
+          "id": 1193,
+          "type": "estate",
+          "elements": {
+            "Id": "1193",
+            "objektart": "wohnung",
+            "objekttyp": "penthouse",
+            "virtualAddress": "0",
+            "objektadresse_freigeben": "1",
+            "reserviert": "0",
+            "verkauft": "0",
+            "vermarktungsart": "miete",
+            "referenz": "0",
+            "exclusive": "0",
+            "neu": "0",
+            "top_angebot": "0",
+            "preisreduktion": "0",
+            "courtage_frei": "0",
+            "objekt_des_tages": "0",
+            "virtualStreet": "",
+            "virtualHouseNumber": "",
+            "laengengrad": "6.09224",
+            "breitengrad": "50.74954",
+            "virtualLatitude": "0.00000",
+            "virtualLongitude": "0.00000",
+            "strasse": "Louis-Bei\u00dfel-Stra\u00dfe",
+            "showGoogleMap": "1",
+            "hausnummer": "31",
+            "objekttitel": "N\u00e4he Waldstadion: Moderne 2-Zimmer-Wohnung mit eigenem Garten- provisionsfrei!",
+            "ort": "Aachen, Steinebr\u00fcck",
+            "objektnr_extern": "JJ142",
+            "plz": "52076",
+            "land": "DEU",
+            "mainLangId": null
+          }
+        },
+        {
+          "id": 5448,
+          "type": "estate",
+          "elements": {
+            "Id": "5448",
+            "objektart": "wohnung",
+            "objekttyp": "hochparterre",
+            "virtualAddress": "0",
+            "objektadresse_freigeben": "0",
+            "reserviert": "0",
+            "verkauft": "0",
+            "vermarktungsart": "miete",
+            "referenz": "0",
+            "exclusive": "0",
+            "neu": "0",
+            "top_angebot": "0",
+            "preisreduktion": "0",
+            "courtage_frei": "1",
+            "objekt_des_tages": "0",
+            "virtualStreet": "",
+            "virtualHouseNumber": "",
+            "laengengrad": "0.00000",
+            "breitengrad": "0.00000",
+            "virtualLatitude": "0.00000",
+            "virtualLongitude": "0.00000",
+            "strasse": "",
+            "showGoogleMap": "1",
+            "hausnummer": "",
+            "objekttitel": "Home looking for a happy family...",
+            "ort": "",
+            "objektnr_extern": "JJ108",
+            "plz": "",
+            "land": "",
+            "mainLangId": "1071"
+          }
+        }
+      ]
+    },
+    "status": {
+      "errorcode": 0,
+      "message": "OK"
+    }
+  }
+}

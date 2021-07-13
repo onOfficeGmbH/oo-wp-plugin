@@ -21,8 +21,12 @@
 
 namespace onOffice\WPlugin;
 
+use DI\Container;
 use DI\ContainerBuilder;
+use DI\DependencyException;
+use DI\NotFoundException;
 use Exception;
+use onOffice\SDK\Exception\HttpFetchNoResultException;
 use onOffice\WPlugin\Controller\EstateViewSimilarEstates;
 use onOffice\WPlugin\DataView\DataDetailView;
 use onOffice\WPlugin\DataView\DataSimilarEstatesSettingsHandler;
@@ -41,6 +45,9 @@ class EstateDetail
 {
 	/** @var int */
 	private $_estateId = null;
+
+	/** @var Container */
+	private $_pContainer;
 
 	/**
 	 *
@@ -164,16 +171,25 @@ class EstateDetail
 
 	/**
 	 *
+	 * @param $pContainer
 	 * @return string
-	 *
+	 * @throws API\APIEmptyResultException
+	 * @throws API\ApiClientException
+	 * @throws DataView\UnknownViewException
+	 * @throws DependencyException
+	 * @throws NotFoundException
+	 * @throws HttpFetchNoResultException
 	 */
 
-	public function getSimilarEstates(): string
+	public function getSimilarEstates($pContainer): string
 	{
-        $pContainerBuilder = new ContainerBuilder;
-        $pContainerBuilder->addDefinitions(ONOFFICE_DI_CONFIG_PATH);
-        $pContainer = $pContainerBuilder->build();
-        $pDataSimilarEstatesSettings = $pContainer->get(DataSimilarEstatesSettingsHandler::class);
+		if(empty($pContainer)){
+			$pContainerBuilder = new ContainerBuilder;
+			$pContainerBuilder->addDefinitions(ONOFFICE_DI_CONFIG_PATH);
+			$this->_pContainer = $pContainerBuilder->build();
+		}
+		$this->_pContainer = $pContainer;
+        $pDataSimilarEstatesSettings = $this->_pContainer->get(DataSimilarEstatesSettingsHandler::class);
         $pDataSimilarSettings = $pDataSimilarEstatesSettings->getDataSimilarEstatesSettings();
         if (!$pDataSimilarSettings->getDataSimilarViewActive()) {
 			return '';

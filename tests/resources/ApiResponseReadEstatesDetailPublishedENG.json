@@ -1,0 +1,215 @@
+{
+  "parameters": {
+    "data": [
+      "Id",
+      "objektart",
+      "objekttyp",
+      "virtualAddress",
+      "objektadresse_freigeben",
+      "reserviert",
+      "verkauft",
+      "vermarktungsart",
+      "virtualStreet",
+      "virtualHouseNumber",
+      "laengengrad",
+      "breitengrad",
+      "virtualLatitude",
+      "virtualLongitude",
+      "strasse",
+      "showGoogleMap",
+      "hausnummer",
+      "objekttitel",
+      "ort",
+      "objektnr_extern",
+      "plz",
+      "land"
+    ],
+    "filter": {
+      "veroeffentlichen": [
+        {
+          "op": "=",
+          "val": 1
+        }
+      ],
+      "Id": [
+        {
+          "op": "=",
+          "val": 15
+        }
+      ]
+    },
+    "estatelanguage": "ENG",
+    "outputlanguage": "ENG",
+    "listlimit": 1,
+    "formatoutput": false,
+    "addMainLangId": true,
+    "listoffset": 0
+  },
+  "response": {
+    "actionid": "urn:onoffice-de-ns:smart:2.5:smartml:action:read",
+    "resourceid": "",
+    "resourcetype": "estate",
+    "cacheable": true,
+    "identifier": "",
+    "data": {
+      "meta": {
+        "cntabsolute": 9
+      },
+      "records": [
+        {
+          "id": 15,
+          "type": "estate",
+          "elements": {
+            "Id": "15",
+            "objektart": "House",
+            "objekttyp": null,
+            "virtualAddress": "0",
+            "objektadresse_freigeben": "0",
+            "reserviert": "0",
+            "verkauft": "1",
+            "vermarktungsart": "Purchase",
+            "virtualStreet": "",
+            "virtualHouseNumber": "",
+            "laengengrad": "0.00000",
+            "breitengrad": "0.00000",
+            "virtualLatitude": "0.00000",
+            "virtualLongitude": "0.00000",
+            "strasse": "",
+            "showGoogleMap": "1",
+            "hausnummer": "",
+            "objekttitel": "",
+            "ort": "",
+            "objektnr_extern": "DJ636",
+            "plz": "",
+            "land": "Germany",
+            "mainLangId": null
+          }
+        },
+        {
+          "id": 1051,
+          "type": "estate",
+          "elements": {
+            "Id": "1.051",
+            "objektart": "Hospitality industry",
+            "objekttyp": "Villa",
+            "virtualAddress": "0",
+            "objektadresse_freigeben": "0",
+            "reserviert": "0",
+            "verkauft": "0",
+            "vermarktungsart": "Rent",
+            "referenz": "0",
+            "virtualStreet": "",
+            "virtualHouseNumber": "",
+            "laengengrad": "6.13455",
+            "breitengrad": "50.78580",
+            "virtualLatitude": "0.00000",
+            "virtualLongitude": "0.00000",
+            "strasse": "Charlottenburger Allee",
+            "showGoogleMap": "1",
+            "hausnummer": "",
+            "objekttitel": "hallo<script>alert(\"hallo\");<\/script>",
+            "ort": "Aachen \/ Rothe Erde",
+            "objektnr_extern": "UT591",
+            "plz": "52068",
+            "land": "Germany",
+            "mainLangId": null
+          }
+        },
+        {
+          "id": 1082,
+          "type": "estate",
+          "elements": {
+            "Id": "1.082",
+            "objektart": "Commercial \/ Retail",
+            "objekttyp": null,
+            "virtualAddress": "1",
+            "objektadresse_freigeben": "0",
+            "reserviert": "0",
+            "verkauft": "0",
+            "vermarktungsart": "Purchase",
+            "referenz": "1",
+            "virtualStreet": "D\u00fcnenstra\u00dfe",
+            "virtualHouseNumber": "12",
+            "laengengrad": "8.39213",
+            "breitengrad": "55.03719",
+            "virtualLatitude": "55.01597",
+            "virtualLongitude": "8.42401",
+            "strasse": "Ellenbogen",
+            "showGoogleMap": "1",
+            "hausnummer": "20",
+            "objekttitel": "Sch\u00f6nes Haus",
+            "ort": "List",
+            "objektnr_extern": "GH203",
+            "plz": "25992",
+            "land": "Germany",
+            "mainLangId": null
+          }
+        },
+        {
+          "id": 1193,
+          "type": "estate",
+          "elements": {
+            "Id": "1.193",
+            "objektart": "Apartment",
+            "objekttyp": "Penthouse",
+            "virtualAddress": "0",
+            "objektadresse_freigeben": "1",
+            "reserviert": "0",
+            "verkauft": "0",
+            "vermarktungsart": "Rent",
+            "referenz": "0",
+            "virtualStreet": "",
+            "virtualHouseNumber": "",
+            "laengengrad": "6.09224",
+            "breitengrad": "50.74954",
+            "virtualLatitude": "0.00000",
+            "virtualLongitude": "0.00000",
+            "strasse": "Louis-Bei\u00dfel-Stra\u00dfe",
+            "showGoogleMap": "1",
+            "hausnummer": "31",
+            "objekttitel": "N\u00e4he Waldstadion: Moderne 2-Zimmer-Wohnung mit eigenem Garten- provisionsfrei!",
+            "ort": "Aachen, Steinebr\u00fcck",
+            "objektnr_extern": "JJ142",
+            "plz": "52076",
+            "land": "Germany",
+            "mainLangId": null
+          }
+        },
+        {
+          "id": 5448,
+          "type": "estate",
+          "elements": {
+            "Id": "5.448",
+            "objektart": "Apartment",
+            "objekttyp": "Mezzanine floor",
+            "virtualAddress": "0",
+            "objektadresse_freigeben": "0",
+            "reserviert": "0",
+            "verkauft": "0",
+            "vermarktungsart": "Rent",
+            "referenz": "0",
+            "virtualStreet": "",
+            "virtualHouseNumber": "",
+            "laengengrad": "0.00000",
+            "breitengrad": "0.00000",
+            "virtualLatitude": "0.00000",
+            "virtualLongitude": "0.00000",
+            "strasse": "",
+            "showGoogleMap": "1",
+            "hausnummer": "",
+            "objekttitel": "Home looking for a happy family...",
+            "ort": "",
+            "objektnr_extern": "JJ108",
+            "plz": "",
+            "land": null,
+            "mainLangId": "1071"
+          }
+        }
+      ]
+    },
+    "status": {
+      "errorcode": 0,
+      "message": "OK"
+    }
+  }
+}
