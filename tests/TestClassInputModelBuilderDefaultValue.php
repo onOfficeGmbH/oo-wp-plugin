@@ -122,7 +122,11 @@ class TestClassInputModelBuilderDefaultValue
 		$pClosure($pInputModel, 'testFieldSingleSelect');
 		$this->assertEquals(InputModelBase::HTML_TYPE_SELECT, $pInputModel->getHtmlType());
 		$pClosure($pInputModel, 'dummy_key');
-		$this->assertEquals(InputModelBase::HTML_TYPE_TEXT, $pInputModel->getHtmlType());
+		$this->assertEquals(InputModelBase::HTML_TYPE_NUMBER, $pInputModel->getHtmlType());
+		$pClosure($pInputModel, 'testFieldInteger');
+		$this->assertEquals(InputModelBase::HTML_TYPE_NUMBER, $pInputModel->getHtmlType());
+		$pClosure($pInputModel, 'testFieldFloat');
+		$this->assertEquals(InputModelBase::HTML_TYPE_NUMBER, $pInputModel->getHtmlType());
 	}
 
 	/**

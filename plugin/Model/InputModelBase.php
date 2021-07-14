@@ -60,6 +60,9 @@ abstract class InputModelBase
 	/** */
 	const HTML_TYPE_CHOSEN = 'chosen';
 
+	/** */
+	const HTML_TYPE_NUMBER = 'number';
+
 	/** @var string */
 	private $_name = null;
 

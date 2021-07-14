@@ -41,8 +41,8 @@ class InputModelBuilderDefaultValue
 		FieldTypes::FIELD_TYPE_VARCHAR => InputModelOption::HTML_TYPE_TEXT,
 		FieldTypes::FIELD_TYPE_DATE => InputModelOption::HTML_TYPE_TEXT,
 		FieldTypes::FIELD_TYPE_DATETIME => InputModelOption::HTML_TYPE_TEXT,
-		FieldTypes::FIELD_TYPE_FLOAT => InputModelOption::HTML_TYPE_TEXT,
-		FieldTypes::FIELD_TYPE_INTEGER => InputModelOption::HTML_TYPE_TEXT,
+		FieldTypes::FIELD_TYPE_FLOAT => InputModelOption::HTML_TYPE_NUMBER,
+		FieldTypes::FIELD_TYPE_INTEGER => InputModelOption::HTML_TYPE_NUMBER,
 		FieldTypes::FIELD_TYPE_MULTISELECT => InputModelOption::HTML_TYPE_SELECT,
 		FieldTypes::FIELD_TYPE_SINGLESELECT => InputModelOption::HTML_TYPE_SELECT,
 		FieldTypes::FIELD_TYPE_BOOLEAN => InputModelOption::HTML_TYPE_SELECT,
@@ -80,7 +80,6 @@ class InputModelBuilderDefaultValue
 		$pInputModelFactory = new InputModelDBFactory($this->_pInputModelDBFactoryConfigForm);
 		$label = __('Default Value', 'onoffice-for-wp-websites');
 		$type = InputModelDBFactoryConfigForm::INPUT_FORM_DEFAULT_VALUE;
-
 		/** @var InputModelDB $pInputModel */
 		$pInputModel = $pInputModelFactory->create($type, $label, true);
 		$pInputModel->setHtmlType(InputModelBase::HTML_TYPE_TEXT);
